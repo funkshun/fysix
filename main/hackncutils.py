@@ -23,6 +23,7 @@ def rk4(y,h,b,k):
 
     return y+(1/6)*k1+(1/3)*k2+(1/3)*k3+(1/6)*k4
 
+
 #Now we added a stepper through time given initial conditions
 #t0: starting time
 #t1: end time
