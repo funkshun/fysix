@@ -43,4 +43,3 @@ def stepper(t0,t1,x0,nstep,h,b,k):
         x[:,i] = rk4(times[k],x[:,k],h,b,k)
     return times,x
 """
-def connectivity(subname_0, subname_1, M): #calculates the connectivity between two subs. M is the number of randomly drawn users

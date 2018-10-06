@@ -1,5 +1,6 @@
 import numpy as np
 import hackncutils.py as util
+import redditutils.py as red
 
 # INITIALIZATION #
 T_init = 1000 #total number of time steps
@@ -27,7 +28,7 @@ def main(Y0, T, N, h, M, b, k, subnames):
     L = np.zeros((N, N)) #matrix of L_jk values; the connectedness of each subreddit, rows and columns ordered same as subnames and within Y
     for j in range(N):
         for k in range(N):
-            L[j,k] = util.connectivity(subnames[j], subnames[k], M)
+            L[j,k] = red.connectivity(subnames[j], subnames[k], M)
     #while loop
     while t < T: #begins at t =0
         y_t = Y[t] #most recent array y, of dimensions (N, 3) of the most recent solutions to s, i, r

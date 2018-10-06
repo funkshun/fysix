@@ -10,10 +10,10 @@ reddit = praw.Reddit(user_agent='HackNCfysix',
 #posters randomly selected who post in both subs over number selected
 
 def connectivity(sub1, sub2, draws):
-    
+
     sum_connected = 0
     authors = []
-    
+
     #get sum posts
     init_posts = reddit.subreddit(sub1).top(limit=draws)
     authors_checked = 0
@@ -46,8 +46,8 @@ def connectivity(sub1, sub2, draws):
         except:
             pass
     return (sum_connected / draws)
-    
-    
+
+
 
 def del_dups(seq):
     seen = {}
