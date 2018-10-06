@@ -52,12 +52,12 @@ def main(Y0, T, N, h, M, b, k, subnames):
             u = np.random.rand()
             if u < prob_infection:
                 Y[t+1][k][1] = 1 / M #infecting "one of the sampled users"
-
-
-
-
-
-
-
-
         t += 1
+
+    final = {}
+    for j in range(N):
+        final_i = []
+        for i in range(T):
+            final_i.append(Y[i][j][1])
+        final[subnames[j]] = final_i
+    return final
