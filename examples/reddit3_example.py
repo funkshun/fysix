@@ -2,7 +2,6 @@ import praw
 from graphviz import Graph
 from requests import Session
 import datetime
-from parse import *
 
 def get_date(submission):
         time = submission.created
@@ -16,16 +15,23 @@ def main():
 
     hits = 0
     tot = 0
-    source = 'meToo'
-    top_posts = reddit.subreddit(source).new(limit=1000)
-     # dot.node(source, color='red')
+    source = 'MemeEconomy'
+    top_posts = reddit.subreddit(source).top(limit=100)
+      # dot.node(source, color='red')
     for submission in top_posts:
         submission.comments.replace_more(limit=0)
         try:
             check = str(submission.title)
-            parse(check, 'metoo')
+            if 'moth' in check.lower():
+                print(check)
+                hits += 1
+                tot += 1
+            else:
+                tot += 1
         except UnicodeEncodeError:
             continue
+
+    print(hits/tot)
 
 if __name__ == '__main__':
     main()
