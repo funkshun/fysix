@@ -1,0 +1,51 @@
+graph G {
+	graph [nodesep=0.5 overlap=false spines=true]
+	node [shape=circle]
+	Deklyned
+	DestinyTheGame
+	Deklyned -- DestinyTheGame
+	DestinyTheGame
+	Deklyned -- DestinyTheGame
+	Warframe
+	Deklyned -- Warframe
+	askscience
+	Deklyned -- askscience
+	Rainbow6
+	Deklyned -- Rainbow6
+	CitrusManga
+	Deklyned -- CitrusManga
+	AskReddit
+	Deklyned -- AskReddit
+	balisong
+	Deklyned -- balisong
+	grandorder
+	Deklyned -- grandorder
+	DarlingInTheFranxx
+	Deklyned -- DarlingInTheFranxx
+	anime_irl
+	Deklyned -- anime_irl
+	anime_irl
+	Deklyned -- anime_irl
+	osugame
+	Deklyned -- osugame
+	anime_irl
+	Deklyned -- anime_irl
+	books
+	Deklyned -- books
+	nier
+	Deklyned -- nier
+	nier
+	Deklyned -- nier
+	unixporn
+	Deklyned -- unixporn
+	AskReddit
+	Deklyned -- AskReddit
+	MechanicalKeyboards
+	Deklyned -- MechanicalKeyboards
+	unixporn
+	Deklyned -- unixporn
+	unixporn
+	Deklyned -- unixporn
+	watercooling
+	Deklyned -- watercooling
+}
