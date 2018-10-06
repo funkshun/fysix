@@ -1,14 +1,31 @@
 import numpy as np
 
+# USEFUL FUNCTIONS #
+
+# INITIALIZATION #
+T_init = 1000 #total number of time steps
+N_init = 3 #total number of communities
+Y_init = np.zeros((T, N, 3))  #initial data for s, i, r for each community. It's an array of T arrays that have N arrays that each of the 3 values of s, i ,r
+subnames_init = ["AskReddit", "explainlikeimfive", "offmychest"] #a list of size N of subreddit names (strings) ORDERED THE SAME as the 3-arrays in Y_init
+
+#example for how to initalize the values for the subreddit indexed 2 (from 0,1,2.... N-1):
+#if I want to initialize explainlikeimfive as being infected with some i, while the other communities as non-infected (so s,i,r = 0):
+Y_init[0][1] = np.array([0.9, 0.1, 0.0]) # index of Y_init: 0 is the time (so 0 since this is initial), the next index is the index of sub you want to give initial condition
 
 
-def prob_infect(): #probability for some subreddit indexed by j to be infected by the other k (N-1) subreddits
-    sum = 0
+def main(Y0, T, N, subnames):
+    Y = Y0
+    t = 0 #initial time step
 
-T = 1000 #total number of time steps
-N = 10 #total number of communities
+    #creating connectivity matrix
+    L = np.zeros((N, N)) #matrix of L_jk values; the connectedness of each subreddit, rows and columns ordered same as subnames and within Y
+    for j in range(N):
+        for k in range(N):
+            L[j,k] =
 
-Y0 = np.zeros((T, N, 3))  #initial data for s, i, r for each community. It's an array of T arrays that have N arrays that each of the 3 values of s, i ,r
+    while t < T:
+        s = Y[]#most recent set of s, i , values of the subreddits
+        i =
+        r =
 
-def main(Y0):
-    while True:
+        t += 1
