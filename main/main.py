@@ -40,7 +40,20 @@ def main(Y0, T, N, h, M, b, k, subnames):
         #after running rk4 on each sub, put the y vector of the N new (s,i,r) vectors into big Y:
         Y[t+1] = y_new
 
-        #next, determines if new uninfected subs should be infected
+        #next, determines if new uninfected subs should be infected:
+        for j in range(N):
+            sm = 0
+            for k in range(N):
+                i_k = Y[t+1][k][1] #current infection percentage of the kth subreddit
+                if j != k:
+                    sm += L[j,k]*i_k
+            prob_infection = sm / (N - 1) #probability of infection of jth subreddit by the other subs
+            u = np.random.rand()
+            if u < prob_infection:
+                Y[t+1][k][1] = 1 / M #infecting "one of the sampled users"
+
+
+
 
 
 
