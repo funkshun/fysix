@@ -1,6 +1,6 @@
 import numpy as np
-import hackncutils.py as util
-import redditutils.py as red
+import hackncutils as util
+import redditutils as red
 
 # INITIALIZATION #
 T_init = 1000 #total number of time steps
