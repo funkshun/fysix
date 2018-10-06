@@ -15,22 +15,26 @@ def main():
 
     hits = 0
     tot = 0
-    source = 'MemeEconomy'
+    source = 'The_Donald'
     top_posts = reddit.subreddit(source).top(limit=100)
-      # dot.node(source, color='red')
     for submission in top_posts:
         submission.comments.replace_more(limit=0)
-        try:
-            check = str(submission.title)
-            if 'moth' in check.lower():
-                print(check)
-                hits += 1
-                tot += 1
-            else:
-                tot += 1
-        except UnicodeEncodeError:
-            continue
+        for comments in submission.comments:
+            try:
+                check = comments.body.lower()
+                if 'trump' in check:
+                    hits += 1
+                    tot += 1
+                elif 'donald' in check:
+                    hits += 1
+                    tot += 1
+                else:
+                    tot += 1
+            except UnicodeEncodeError:
+                continue
 
+    print(hits)
+    print(tot)
     print(hits/tot)
 
 if __name__ == '__main__':
