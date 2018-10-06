@@ -19,7 +19,7 @@ def main():
         dot.edge('askreddit', user.name, color = 'blue')
         for comment in user.comments.new(limit=100):
             y = comment.subreddit.display_name
-            dot.node(y, color = 'green')
+            dot.node(y, color = 'red')
             dot.edge(user.name, y, color = 'orange')
 
 
