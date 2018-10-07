@@ -19,6 +19,7 @@ def _connectivity(sub1, sub2, draws):
     else:
         big = sub2
         small = sub1
+
     #get sum posts
     init_posts = reddit.subreddit(small).top(limit=draws)
     
@@ -45,6 +46,7 @@ def _connectivity(sub1, sub2, draws):
                     break
         except:
             pass
+<<<<<<< HEAD
     return 2 * (sum_connected / draws)
 
 def group_connectivity(communities, draws):
@@ -86,6 +88,11 @@ def connectivity(sub1, sub2, conns):
 
 
         
+=======
+    return (sum_connected / draws)
+
+
+>>>>>>> 945aa1e66f7123543b3b3eedb6366c974ce5fcf4
 
 def del_dups(seq):
     seen = {}

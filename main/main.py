@@ -1,5 +1,6 @@
 import numpy as np
-import hackncutils.py as util
+import hackncutils as util
+import redditutils as red
 
 # INITIALIZATION #
 T_init = 1000 #total number of time steps
@@ -27,7 +28,7 @@ def main(Y0, T, N, h, M, b, k, subnames):
     L = np.zeros((N, N)) #matrix of L_jk values; the connectedness of each subreddit, rows and columns ordered same as subnames and within Y
     for j in range(N):
         for k in range(N):
-            L[j,k] = util.connectivity(subnames[j], subnames[k], M)
+            L[j,k] = red.connectivity(subnames[j], subnames[k], M)
     #while loop
     while t < T: #begins at t =0
         y_t = Y[t] #most recent array y, of dimensions (N, 3) of the most recent solutions to s, i, r
@@ -40,10 +41,23 @@ def main(Y0, T, N, h, M, b, k, subnames):
         #after running rk4 on each sub, put the y vector of the N new (s,i,r) vectors into big Y:
         Y[t+1] = y_new
 
-        #next, determines if new uninfected subs should be infected
-
-
-
-
-
+        #next, determines if new uninfected subs should be infected:
+        for j in range(N):
+            sm = 0
+            for k in range(N):
+                i_k = Y[t+1][k][1] #current infection percentage of the kth subreddit
+                if j != k:
+                    sm += L[j,k]*i_k
+            prob_infection = sm / (N - 1) #probability of infection of jth subreddit by the other subs
+            u = np.random.rand()
+            if u < prob_infection:
+                Y[t+1][k][1] = 1 / M #infecting "one of the sampled users"
         t += 1
+
+    final = {}
+    for j in range(N):
+        final_i = []
+        for i in range(T):
+            final_i.append(Y[i][j][1])
+        final[subnames[j]] = final_i
+    return final
