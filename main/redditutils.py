@@ -1,6 +1,7 @@
 import praw
 import numpy as np
 import pickle
+import time
 
 #reddit authentication (Boo's Account "Deklyned")
 reddit = praw.Reddit(user_agent='HackNCfysix',
@@ -12,7 +13,6 @@ reddit = praw.Reddit(user_agent='HackNCfysix',
 #posters randomly selected who post in both subs over number selected
 
 def _connectivity(sub1, sub2, draws):
-
     sum_connected = 0
     authors = []
     if reddit.subreddit(sub1).subscribers > reddit.subreddit(sub2).subscribers:
@@ -57,6 +57,7 @@ def _connectivity(sub1, sub2, draws):
 #Connectivity for communities[i] -> communities[j]
 #Is in ret[i][j]
 def connectivity(communities, draws):
+    start_time = time.time()
     ret = np.zeros((len(communities),len(communities)))
     max_conn = 0
     for i in range(0, len(communities)):
@@ -88,10 +89,10 @@ def connectivity(communities, draws):
                 ret[m][n] = ret[m][n] / max_conn
                 ret[n][m] = ret[m][n] / max_conn
                 #ret[sec + ", " + sec] = _connectivity(first, sec, draws)
-    output = open('conn.pk1', 'wb')
+    output = open('15byconn.pk1', 'wb')
     pickle.dump(ret, output)
     output.close()
-    print("Receive The Pickle")
+    print("Receive The Pickle\nPickle created in " + str(time.time() - start_time))
 
 
 def del_dups(seq):
