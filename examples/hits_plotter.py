@@ -4,11 +4,14 @@ import pylab
 import numpy as np
 
 
-df = pd.read_csv('regex_test.csv', sep=',',header=None)
+df = pd.read_csv('Animemessub.csv', sep=',',header=None)
 data = df.values
-binwidth = np.abs(max(data) - min(data))/30
-print(binwidth)
+sort = np.sort(data, axis=1)
+uniq = np.unique(sort)
+print(uniq)
+binwidth = np.abs(max(uniq) - min(uniq))/4
 
-plt.hist(data, bins=np.arange(min(data), max(data) + binwidth, binwidth))
+plt.hist(uniq, bins=np.arange(min(uniq), max(uniq) + binwidth, binwidth))
 
 plt.show()
+

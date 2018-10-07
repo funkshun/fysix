@@ -17,42 +17,51 @@ def main():
 
     hits = 0
     tot = 0
-    source = 'mothmemes'
+    source = 'dankmemes'
     time_hits = []
-    top_posts = reddit.subreddit(source).top(limit=1000)
+    top_posts = reddit.subreddit(source).top(limit=1000000)
 
     #define REGEXs
-    lampreg = re.compile('l.mp')
-    mothreg = re.compile('m.th')
+    lampreg = re.compile('^lamp$')
+    mothreg = re.compile('^moth$')
     for submission in top_posts:
-        lex = submission.title.split(" ")
-        for token in lex:
-            if mothreg.search(token):
-                print(f'moth title time: {submission.created}')
-                hits += 1
-                tot += 1
-                time_hits.append(submission.created)
-        for token in lex:
-            if lampreg.search(token):
-                print(f'lamp title time: {submission.created}')
-                hits += 1
-                tot += 1
-                time_hits.append(submission.created)
+        try:
+            lex = submission.title.split(" ")
+            for token in lex:
+                if mothreg.search(token):
+                    print(f'moth title time: {submission.created}')
+                    print(f'moth title: {submission.title}')
+                    hits += 1
+                    tot += 1
+                    time_hits.append(submission.created)
+            for token in lex:
+                if lampreg.search(token):
+                    print(f'lamp title time: {submission.created}')
+                    print(f'lamp title: {submission.title}')
+                    hits += 1
+                    tot += 1
+                    time_hits.append(submission.created)
+        except UnicodeEncodeError:
+            continue
+
         submission.comments.replace_more(limit=0)
+
         for comments in submission.comments:
             try:
                 check = comments.body.lower().split(" ")
-                for token1 in check:
+                for token in check:
                     if mothreg.search(token):
                         print(f'moth comment time: {comments.created}')
+                        print(f'moth comment: {comments.body}')
                         hits += 1
                         tot += 1
-                        time_hits.append(submission.created)
+                        time_hits.append(comments.created)
                     elif lampreg.search(token):
                         print(f'lamp comment time: {comments.created}')
+                        print(f'lamp comment: {comments.body}')
                         hits += 1
                         tot += 1
-                        time_hits.append(submission.created)
+                        time_hits.append(comments.created)
                     else:
                         tot += 1
             except UnicodeEncodeError:
@@ -63,7 +72,7 @@ def main():
     print(hits/tot)
     print(time_hits)
 
-    csvfile = 'mothmemessub.csv'
+    csvfile = 'dankmemes_moth.csv'
     with open(csvfile, 'w+') as output:
         writer = csv.writer(output, lineterminator='\n')
         for val in time_hits:
