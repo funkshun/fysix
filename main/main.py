@@ -7,11 +7,11 @@ import redditutils as red
 
 T_init = 100 #total number of time steps
 N_init = 5 #total number of communities
-M_init = 1000
+M_init = 10
 b_init = np.zeros(N_init) #the larger it is, the faster that the subreddit gets infected
 k_init = np.zeros(N_init)#the larger it is, the faster that the subreddit recovers
 h_init = 1
-subnames_init = ["AskReddit", "explainlikeimfive", "offmychest", "t1", "t2"] #a list of size N of subreddit names (strings) ORDERED THE SAME as the 3-arrays in Y_init
+subnames_init = ["AskReddit", "explainlikeimfive", "offmychest", "outoftheloop", "politics"] #a list of size N of subreddit names (strings) ORDERED THE SAME as the 3-arrays in Y_init
 
 #example for how to initalize the values for the subreddit indexed 2 (from 0,1,2.... N-1):
 Y_init = np.zeros((T_init, N_init, 3))  #initial data for s, i, r for each community. It's an array of T arrays that have N arrays that each of the 3 values of s, i ,r
@@ -31,15 +31,12 @@ def main(Y0, T, N, h, M, b, k, subnames):
     t = 0 #initial time step
     h #step size
 
-    """
     #creating connectivity matrix
-    L = np.zeros((N, N)) #matrix of L_jc values; the connectedness of each subreddit, rows and columns ordered same as subnames and within Y
-    for j in range(N):
-        for c in range(N):
-            L[j,c] = red.connectivity(subnames[j], subnames[c], M)
-    """
+    #L = np.zeros((N, N)) #matrix of L_jc values; the connectedness of each subreddit, rows and columns ordered same as subnames and within Y
+    L = red.connectivity(subnames, M)
+
     #TEST:
-    L = np.random.uniform(0.2, 0.7, (N,N))
+    #L = np.random.uniform(0.2, 0.7, (N,N))
     #print(L)
     #while loop
     while t < (T-1): #begins at t =0
