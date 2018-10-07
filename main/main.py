@@ -8,7 +8,7 @@ import redditutils as red
 T_init = 100 #total number of time steps
 N_init = 5 #total number of communities
 M_init = 1000
-b_init = 5
+b_init = 0.5
 k_init = 0.09
 h_init = 1
 subnames_init = ["AskReddit", "explainlikeimfive", "offmychest", "t1", "t2"] #a list of size N of subreddit names (strings) ORDERED THE SAME as the 3-arrays in Y_init
