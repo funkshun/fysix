@@ -48,6 +48,11 @@ def _connectivity(sub1, sub2, draws):
             pass
     return (sum_connected / draws)
 
+#Accepts a list of subreddits and a number of random draws
+#Returns a matrix of connectivity values
+#Reference initial list of subreddits for labels
+#Connectivity for communities[i] -> communities[j]
+#Is in ret[i][j]
 def connectivity(communities, draws):
     ret = []
     for a in range(len(communities)):
