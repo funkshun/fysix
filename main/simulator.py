@@ -28,16 +28,16 @@ def initialize(simName): #returns a dict specifying prechosen initial quantities
 
         #if I want to initialize explainlikeimfive as being infected with some i, while the other communities as non-infected (so s,i,r = 0):
         y_init[0] = np.array([1.0, 0.0, 0.0]) # index of Y_init: 0 is the time (so 0 since this is initial), the next index is the index of sub you want to give initial condition
-        y_init[1] = np.array([0.9, 0.1, 0.0])
-        y_init[2] = np.array([0.9, 0.0, 0.0])
-        y_init[3] = np.array([0.5, 0.5, 0.0])
-        y_init[4] = np.array([0.8, 0.2, 0.0])
+        y_init[1] = np.array([0.9999, 0.0001, 0.0])
+        y_init[2] = np.array([1.0, 0.0, 0.0])
+        y_init[3] = np.array([0.7, 0.3, 0.0])
+        y_init[4] = np.array([1.0, 0.0, 0.0])
         #initialize b and k:
 
         #the larger it is, the faster that the subreddit gets infected
-        b_init = np.array([0.8, 1.5, 0.5, 1.3, 0.5]) #usualy range from k to 2
+        b_init = np.array([1.1, 1.5, 0.4, 1.0, 0.6]) #usualy range from k to 2
         #the larger it is, the faster that the subreddit recovers
-        k_init = np.array([0.1, 0.01, 0.2, 0.4, 0.3]) # usually range from 0.01 to 0.5
+        k_init = np.array([0.02, 0.01, 0.2, 0.25, 0.3]) # usually range from 0.01 to 0.5
 
         masterlist = ['smallpolitical.pk1', T_init, N_init, M_init, subnames_init, b_init, k_init, y_init]
 
@@ -75,7 +75,7 @@ def initialize(simName): #returns a dict specifying prechosen initial quantities
 
         #if I want to initialize explainlikeimfive as being infected with some i, while the other communities as non-infected (so s,i,r = 0):
         y_init[0] = np.array([1.0, 0.0, 0.0]) # index of Y_init: 0 is the time (so 0 since this is initial), the next index is the index of sub you want to give initial condition
-        y_init[1] = np.array([1.0, 0.0, 0.0])
+        y_init[1] = np.array([0.9, 0.1, 0.0])
         y_init[2] = np.array([1.0, 0.0, 0.0])
         y_init[3] = np.array([1.0, 0.0, 0.0])
         y_init[4] = np.array([1.0, 0.0, 0.0])
@@ -92,7 +92,7 @@ def initialize(simName): #returns a dict specifying prechosen initial quantities
         #initialize b and k:
 
         #the larger it is, the faster that the subreddit gets infected
-        b_init = np.array([0.8, 1.5, 0.2, 0.4, 0.3, 0.7, 0.8, 1.4, 0.3, 0.1, 0.5, 0.3, 0.6, 0.9, 0.2]) #usualy range from k to 2
+        b_init = np.array([0.8, 1.5, 0.2, 0.4, 0.3, 0.7, 0.8, 1.4, 0.3, 0.1, 0.5, 0.3, 0.6, 0.9, 0.2]) #usualy range from 0 to 2
         #the larger it is, the faster that the subreddit recovers
         k_init = np.array([0.05, 0.01, 0.1, 0.1, 0.09, 0.08, 0.09, 0.08, 0.03, 0.07, 0.1, 0.07, 0.05, 0.04, 0.1]) # usually range from 0.01 to 0.1
 
@@ -165,6 +165,22 @@ def simulate(simName): # Y0, T, N, h, M, b, k, subnames
                 #print(prob_infection)
                 if u < prob_infection:
                     Y[t+1][j][1] = 1 / M #infecting "one of the sampled users"
+        #next, can randomly make some "recovered subreddit re-infected by switching recovered to susceptible":
+        """
+        for j in range(N):
+            if Y[t+1][j][2] > 0.5: #if more than 50% recovered
+                test = 1 / (T)
+                u = np.random.rand()
+                if u < test: #if subreddit is randomly
+                    #print('Idea reappeared!')
+                    #print('at iteration ' + str(t))
+                    suscepthold = Y[t+1][j][0]
+                    #print(suscepthold)
+                    Y[t+1][j][1] += 0.1 * Y[t+1][j][2]
+                    Y[t+1][j][2] -= 0.1 * Y[t+1][j][2] #infecting "one of the sampled users"
+                    break #so that only one random re-start thing can happen per iteration
+        """
+
         t += 1
 
     final = {}
@@ -174,25 +190,3 @@ def simulate(simName): # Y0, T, N, h, M, b, k, subnames
             final_i.append(Y[i][j][1])
         final[subnames[j]] = final_i
     return final
-
-x = simulate("smallpolitical")
-#print(x)
-
-T_test = 200
-t = np.arange(T_test)
-
-subnames_test = ["esist",
-"The_Mueller",
-"liberal",
-"politics",
-"neoliberal"]
-
-plt.figure(1)
-
-for name in subnames_test:
-    x1 = np.array(x[name])
-    plt.plot(t, x1, c=np.random.rand(3,), label = name)
-
-plt.grid()
-plt.legend()
-plt.show()
