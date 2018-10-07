@@ -112,7 +112,7 @@ def main():
     L = connectivity(subs, 100)
     
     with open(argv[1] + '.pk1', 'wb+') as output:
-        pickle.dump(ret, output)
+        pickle.dump(L, output)
     print("Receive The Pickle\nPickle created in " + str(time.time() - start_time))
 
 if __name__ == '__main__':
