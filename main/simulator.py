@@ -43,8 +43,6 @@ def initialize(simName): #returns a dict specifying prechosen initial quantities
 
         return masterlist
 
-
-    # political #
     if simName == 'political':
         T_init = 200 #total number of time steps
         N_init = 15 #total number of communities
@@ -97,6 +95,46 @@ def initialize(simName): #returns a dict specifying prechosen initial quantities
         k_init = np.array([0.05, 0.01, 0.1, 0.1, 0.09, 0.08, 0.09, 0.08, 0.03, 0.07, 0.1, 0.07, 0.05, 0.04, 0.1]) # usually range from 0.01 to 0.1
 
         masterlist = ['political.pk1', T_init, N_init, M_init, subnames_init, b_init, k_init, y_init]
+
+        return masterlist
+
+    if simName == 'entertainment':
+        T_init = 200 #total number of time steps
+        N_init = 8 #total number of communities
+        M_init = 100
+        h_init = 1
+        y_init = np.zeros((N_init,3))  #initial data for s, i, r for each community. It's an array of T arrays that have N arrays that each of the 3 values of s, i ,r
+        for j in range(N_init): #initialize each jth sub with (s,i,r) = (1,0,0)
+            y_init[j] = np.array([1.0, 0.0, 0.0])
+
+        subnames_init = ['movies',
+        'television',
+        'music',
+        'celebrities',
+        'actors',
+        'movieclub',
+        'documentaries',
+        'westerns'] #a list of size N of subreddit names (strings) ORDERED THE SAME as the 3-arrays in Y_init
+
+        #simulatingstring = "Trump"
+
+        #if I want to initialize explainlikeimfive as being infected with some i, while the other communities as non-infected (so s,i,r = 0):
+        y_init[0] = np.array([1.0, 0.0, 0.0]) # index of Y_init: 0 is the time (so 0 since this is initial), the next index is the index of sub you want to give initial condition
+        y_init[1] = np.array([1.0, 0.0, 0.0])
+        y_init[2] = np.array([1.0, 0.0, 0.0])
+        y_init[3] = np.array([0.9, 0.1, 0.0])
+        y_init[4] = np.array([1.0, 0.0, 0.0])
+        y_init[1] = np.array([0.9999, 0.0001, 0.0])
+        y_init[2] = np.array([1.0, 0.0, 0.0])
+        y_init[3] = np.array([0.5, 0.5, 0.0])
+        #initialize b and k:
+
+        #the larger it is, the faster that the subreddit gets infected
+        b_init = np.array([1.5, 1.2, 1.3, 0.4, 0.3, 0.2, 0.5, 0.2]) #usualy range from k to 2
+        #the larger it is, the faster that the subreddit recovers
+        k_init = np.array([0.2, 0.1, 0.3, 0.1, 0.12, 0.1, 0.04, 0.01]) # usually range from 0.01 to 0.5
+
+        masterlist = ['entertainment.pk1', T_init, N_init, M_init, subnames_init, b_init, k_init, y_init]
 
         return masterlist
 #format: 'pickle name' : [picklefilename (str), T, N, M, subnames (list of str), b array, k array, initialization array(N, 3)]
@@ -157,10 +195,10 @@ def simulate(simName): # Y0, T, N, h, M, b, k, subnames
                 for c in range(N):
                     if c != j:
                         i_c = Y[t+1][c][1] #current infection percentage of the kth subreddit
-                        #print((j,c))
+                        #print((j,c))s
                         #print(i_c)
                         sm += L[j,c]*i_c
-                prob_infection = (sm)+ util.probSum(Y,L,t,j) #probability of infection of jth subreddit by the other subs
+                prob_infection = (sm / (N - 1))# + util.probSum(Y,L,t,j) #probability of infection of jth subreddit by the other subs
                 u = np.random.rand()
                 #print(prob_infection)
                 if u < prob_infection:

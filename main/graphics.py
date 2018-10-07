@@ -9,7 +9,7 @@ from bokeh.models.glyphs import MultiLine
 from bokeh.models.markers import Circle
 from bokeh.colors import RGB
 
-pickles = ["smallpolitical", "politcal"]
+pickles = ["smallpolitical", "political", "entertainment"]
 
 ## Bokeh initialization code
 hv.extension('bokeh')
@@ -23,12 +23,12 @@ def startup():
     connections = np.array([])
 
     for pickle in pickles:
-        newSub, newConnect = simulator.simulate(pickle)
-        subreddits = np.append(subreddits, newSub)
-        connections = np.append(connections, newConnect)
+        sim_tuple = simulator.simulate(pickle)
+        connections = sim_tuple[0]
+        subreddits = sim_tuple[1]
         if len(subreddits) > maxSubreddits:
             maxSubreddits = len(subreddits)
-        if np.max(len(subreddits.values()) > maxTimeSteps):
+        if np.max(len(list(subreddits.values())) > maxTimeSteps):
             maxTimeSteps = len(subreddits.values())
 
     launch(subreddits, connections, maxSubreddits, maxTimeSteps)
@@ -43,8 +43,8 @@ def launch(allSubreddits, allConnections, maxSubreddits, maxTimeSteps):
     Y = np.zeros((numPickles, maxSubreddits))
     R = np.zeros((numPickles, maxSubreddits))
     N = np.zeros((numPickles, maxSubreddits))
-    names = np.array([], [])
-    for i in range(len(numPickles)):
+    names = {}
+    for i in range(numPickles):
         names = names.append('')
 
     infected = np.zeros((numPickles, maxSubreddits, maxTimeSteps))

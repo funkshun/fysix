@@ -103,7 +103,7 @@ def del_dups(seq):
     del seq[pos:]
 
 def main():
-    pickles = {'political':['esist', 'The_Mueller', 'liberal', 'politcs', 'neoliberal', 'TrumpCriticizesTrump', 'EnoughTrumpSpam', 'Impeach_Trump', 'PoliticalHumor', 'funny', 'news', 'socialism', 'LateStageCapitalism', 'dankmemes', 'pics'], 'smallpolitical':['esist', 'The_Mueller', 'liberal', 'politcs', 'neoliberal'], 'entertainment':['movies', 'television', 'music', 'celebrities', 'actors', 'movieclub', 'documentaries', 'westerns']}
+    pickles = {'political':['esist', 'The_Mueller', 'liberal', 'politcs', 'neoliberal', 'TrumpCriticizesTrump', 'EnoughTrumpSpam', 'Impeach_Trump', 'PoliticalHumor', 'funny', 'news', 'socialism', 'LateStageCapitalism', 'dankmemes', 'pics'], 'smallpolitical':['esist', 'The_Mueller', 'liberal', 'politcs', 'neoliberal'], 'entertainment':['movies', 'television', 'music', 'celebrities', 'actors', 'movieclub', 'documentaries', 'westerns'], 'gaming':['gaming', 'Overwatch', 'leagueoflegends', 'Warframe', 'Rainbow6', 'titanfall', 'DestinyTheGame', 'pcmasterrace', 'Games', 'skyrim', 'csgo', 'DotA2', 'wow', 'Fallout', 'PUBG', 'FortNiteBR', 'hearthstone', 'smashbros', 'starcraft', 'truegaming']}
 
     
     # 'political
