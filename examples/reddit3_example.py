@@ -17,7 +17,7 @@ def main():
 
     hits = 0
     tot = 0
-    source = 'dankmemes'
+    source = 'MemeEconomy'
     time_hits = []
     top_posts = reddit.subreddit(source).top(limit=1000000)
 
@@ -72,7 +72,7 @@ def main():
     print(hits/tot)
     print(time_hits)
 
-    csvfile = 'dankmemes_moth.csv'
+    csvfile = 'memeeconomy_moth.csv'
     with open(csvfile, 'w+') as output:
         writer = csv.writer(output, lineterminator='\n')
         for val in time_hits:
