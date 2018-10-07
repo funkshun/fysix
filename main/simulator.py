@@ -188,35 +188,3 @@ def simulate(simName): # Y0, T, N, h, M, b, k, subnames
             final_i.append(Y[i][j][1])
         final[subnames[j]] = final_i
     return final
-
-x = simulate("political")
-#print(x)
-
-T_test = 200
-t = np.arange(T_test)
-
-subnames_test = ["esist",
-"The_Mueller",
-"liberal",
-"politics",
-"neoliberal",
-"TrumpCriticizesTrump",
-"EnoughTrumpSpam",
-"Impeach_Trump",
-"PoliticalHumor",
-"funny",
-"news",
-"socialism",
-"LateStageCapitalism",
-"dankmemes",
-"pics"]
-
-plt.figure(1)
-
-for name in subnames_test:
-    x1 = np.array(x[name])
-    plt.plot(t, x1, c=np.random.rand(3,), label = name)
-
-plt.grid()
-plt.legend()
-plt.show()
