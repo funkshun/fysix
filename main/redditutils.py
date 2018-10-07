@@ -2,6 +2,7 @@ import praw
 import numpy as np
 import pickle
 import time
+from sys import argv
 
 #reddit authentication (Boo's Account "Deklyned")
 reddit = praw.Reddit(user_agent='HackNCfysix',
@@ -89,11 +90,7 @@ def connectivity(communities, draws):
                 ret[m][n] = ret[m][n] / max_conn
                 ret[n][m] = ret[m][n] / max_conn
                 #ret[sec + ", " + sec] = _connectivity(first, sec, draws)
-    output = open('15byconn.pk1', 'wb')
-    pickle.dump(ret, output)
-    output.close()
-    print("Receive The Pickle\nPickle created in " + str(time.time() - start_time))
-
+    return ret
 
 def del_dups(seq):
     seen = {}
@@ -106,8 +103,17 @@ def del_dups(seq):
     del seq[pos:]
 
 def main():
-    subs = ['esist', 'The_Mueller', 'liberal', 'politcs', 'neoliberal', 'TrumpCriticizesTrump', 'EnoughTrumpSpam', 'Impeach_Trump', 'PoliticalHumor', 'funny', 'news', 'socialism', 'LateStageCapitalism', 'dankmemes', 'pics']
-    connectivity(subs, 100)
+    pickles = {'political':['esist', 'The_Mueller', 'liberal', 'politcs', 'neoliberal', 'TrumpCriticizesTrump', 'EnoughTrumpSpam', 'Impeach_Trump', 'PoliticalHumor', 'funny', 'news', 'socialism', 'LateStageCapitalism', 'dankmemes', 'pics'], 'smallpolitical':['esist', 'The_Mueller', 'liberal', 'politcs', 'neoliberal'], 'entertainment':['movies', 'television', 'music', 'celebrities', 'actors', 'movieclub', 'documentaries', 'westerns']}
+
+    
+    # 'political
+    #subs = ['esist', 'The_Mueller', 'liberal', 'politcs', 'neoliberal', 'TrumpCriticizesTrump', 'EnoughTrumpSpam', 'Impeach_Trump', 'PoliticalHumor', 'funny', 'news', 'socialism', 'LateStageCapitalism', 'dankmemes', 'pics']
+    subs = pickles[argv[1]]
+    L = connectivity(subs, 100)
+    
+    with open(argv[1] + '.pk1', 'wb+') as output:
+        pickle.dump(ret, output)
+    print("Receive The Pickle\nPickle created in " + str(time.time() - start_time))
 
 if __name__ == '__main__':
     main()
