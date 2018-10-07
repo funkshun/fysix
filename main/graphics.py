@@ -1,6 +1,6 @@
 import numpy as np
 
-import simulator.py
+import simulator
 import holoviews as hv
 from bokeh.layouts import row, widgetbox
 from bokeh.models import CustomJS, Slider, DataRange1d, Plot, LinearAxis, Grid, HoverTool, Dropdown, Select, Button, PreText
