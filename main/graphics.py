@@ -81,7 +81,7 @@ def launch(all_subreddits, all_connections, sub_reference):
 
     curPickle = 0
 
-    source = ColumnDataSource(dict(time=[0, 0, 0], x=X[curPickle], y=Y[curPickle],
+    source = ColumnDataSource(dict(time=[0, 0, 9], x=X[curPickle], y=Y[curPickle],
         r=R[curPickle], colors=colors[curPickle], name=sub_reference[curPickle]))
 
     plot = figure(
@@ -97,7 +97,6 @@ def launch(all_subreddits, all_connections, sub_reference):
             ('URL', '@URL'),
             ]
         ))
-
 
     # Add lines connecting each glyph
     for i in range(N[curPickle]):
@@ -117,47 +116,33 @@ def launch(all_subreddits, all_connections, sub_reference):
     plot.add_glyph(source, glyph)
     ## Bokeh Widget and JS Code ##############################################
 
-    # JS code triggered whenever value slider is changed
-    '''timeCallback = CustomJS(args=dict(source=source), code="""
-    document.write("Pickle Called");
-    var data = source.data;
-    curTimeIdx = radius.value;
-    for (int i = 0; i < data.color.length; i++) {
-        data.color[i] =
-    }
-    source.change.emit();
-    """)'''
-
     callback = CustomJS(args=dict(source=source), code="""
-    var data = source.data;
-    var f = cb_obj.value
-    var time = data['time']
-    time = f
-    source.change.emit();
-""")
-
-    pickleCallback = CustomJS(args=dict(source=source), code="""
-    document.write("Pickle Called");
-    var data = source.data;
-    var idx = 0;
-    var value = menu.value;
-    for (int i = 0; i < )
-
-
-    for (int i = 0; i < data.color.length; i++) {
-        data.color[i] =
-    }
-    source.change.emit();
+        var data = source.data;
+        var time = time.value;
+        var choice = menu.value;
+        var A = amp.value;
+        var k = freq.value;
+        var phi = phase.value;
+        var B = offset.value;
+        var color = data['colors']
+        var y = data['y']
+        for (var i = 0; i < x.length; i++) {
+            y[i] = B + A*Math.sin(k*x[i]+phi);
+        }
+        source.change.emit();
     """)
+
+
+
 
     ##################################################################################
     pickleMenu = Select(title="Option:", value="foo", options=pickles, callback=pickleCallback)
-    pickleCallback.args["menu"] = pickleMenu
+    callback.args["menu"] = pickleMenu
     pickleMenu.js_on_change("value", pickleCallback)
 
     timeSlider = Slider(start=0, end=N[curPickle], value=1, step=1,
                 title="Change Time", callback=callback)
-    callback.args["time"] = timeSlider
+    callback.args["timeSlider"] = timeSlider
     timeSlider.js_on_change('time', callback)
 
     text = PreText(text = """
