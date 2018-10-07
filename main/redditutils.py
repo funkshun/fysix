@@ -48,8 +48,13 @@ def _connectivity(sub1, sub2, draws):
             pass
     return (sum_connected / draws)
 
-def group_connectivity(communities, draws):
-    ret = {}
+def connectivity(communities, draws):
+    ret = []
+    for a in range(len(communities)):
+        x = []
+        for b in range(len(communities)):
+            x.append(0)
+        ret.append(x)
     max_conn = 0
     for i in range(0, len(communities)):
         for j in range(i, len(communities)):
@@ -68,22 +73,18 @@ def group_connectivity(communities, draws):
             else:
                 first = communities[k]
                 sec = communities[l]
-                max_conn = max(ret[first + ", " + sec], max_conn)
+                max_conn = max(ret[k][l], max_conn)
                 #ret[sec + ", " + sec] = _connectivity(first, sec, draws)
     
-    for l in range(0, len(communities)):
-        for m in range(i, len(communities)):
-            if l == m:
+    for m in range(0, len(communities)):
+        for n in range(i, len(communities)):
+            if m == n:
                 pass
             else:
                 first = communities[l]
-                sec = communities[m]
-                ret[first + ", " + sec] = ret[first + ", " + sec] / max_conn
+                ret[m][n] = ret[m][n] / max_conn
                 #ret[sec + ", " + sec] = _connectivity(first, sec, draws)
     return ret
-
-def connectivity(sub1, sub2, conns):
-    return conns[sub1 + ", " + sub2]
 
 
 def del_dups(seq):
