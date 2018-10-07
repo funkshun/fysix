@@ -85,6 +85,7 @@ def connectivity(communities, draws):
             else:
                 first = communities[l]
                 ret[m][n] = ret[m][n] / max_conn
+                ret[n][m] = ret[m][n] / max_conn
                 #ret[sec + ", " + sec] = _connectivity(first, sec, draws)
     output = open('conn.pk1', 'wb')
     pickle.dump(ret, output)
