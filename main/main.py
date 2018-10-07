@@ -8,29 +8,52 @@ import pickle
 # INITIALIZATION #
 
 T_init = 100 #total number of time steps
-N_init = 5 #total number of communities
-M_init = 1000
-b_init = 0.5
-k_init = 0.09
-M_init = 100
-b_init = np.zeros(N_init) #the larger it is, the faster that the subreddit gets infected
-k_init = np.zeros(N_init)#the larger it is, the faster that the subreddit recovers
-h_init = 1
-subnames_init = ["esist", "The_Mueller", "liberal", "politics", "neoliberal"] #a list of size N of subreddit names (strings) ORDERED THE SAME as the 3-arrays in Y_init
 
-#example for how to initalize the values for the subreddit indexed 2 (from 0,1,2.... N-1):
+N_init = 15 #total number of communities
+M_init = 100
+h_init = 1
 Y_init = np.zeros((T_init, N_init, 3))  #initial data for s, i, r for each community. It's an array of T arrays that have N arrays that each of the 3 values of s, i ,r
 for j in range(N_init): #initialize each jth sub with (s,i,r) = (1,0,0)
     Y_init[0][j] = np.array([1.0, 0.0, 0.0])
 
+subnames_init = ["esist",
+"The_Mueller",
+"liberal",
+"politics",
+"neoliberal",
+"TrumpCriticizesTrump",
+"EnoughTrumpSpam",
+"Impeach_Trump",
+"PoliticalHumor",
+"funny",
+"news",
+"socialism",
+"LateStageCapitalism",
+"dankmemes",
+"pics"] #a list of size N of subreddit names (strings) ORDERED THE SAME as the 3-arrays in Y_init
+
 #if I want to initialize explainlikeimfive as being infected with some i, while the other communities as non-infected (so s,i,r = 0):
-Y_init[0][1] = np.array([0.6, 0.4, 0.0]) # index of Y_init: 0 is the time (so 0 since this is initial), the next index is the index of sub you want to give initial condition
-Y_init[0][3] = np.array([0.2, 0.8, 0.0])
-Y_init[0][0] = np.array([0.4, 0.6, 0.0])
+Y_init[0][0] = np.array([0.7, 0.3, 0.0]) # index of Y_init: 0 is the time (so 0 since this is initial), the next index is the index of sub you want to give initial condition
+Y_init[0][1] = np.array([0.2, 0.8, 0.0])
+Y_init[0][2] = np.array([0.9, 0.1, 0.0])
+Y_init[0][3] = np.array([0.8, 0.2, 0.0])
+Y_init[0][4] = np.array([1.0, 0.0, 0.0])
+Y_init[0][5] = np.array([0.5, 0.5, 0.0])
+Y_init[0][6] = np.array([0.3, 0.7, 0.0])
+Y_init[0][7] = np.array([0.4, 0.6, 0.0])
+Y_init[0][8] = np.array([1.0, 0.0, 0.0])
+Y_init[0][9] = np.array([1.0, 0.0, 0.0])
+Y_init[0][10] = np.array([0.6, 0.4, 0.0])
+Y_init[0][11] = np.array([0.8, 0.2, 0.0])
+Y_init[0][12] = np.array([0.7, 0.3, 0.0])
+Y_init[0][13] = np.array([0.9, 0.1, 0.0])
+Y_init[0][14] = np.array([1.0, 0.0, 0.0])
 #initialize b and k:
 
-b_init = np.array([0.2, 0.3, 0.7, 1.0, 0.5])
-k_init = np.array([0.1, 0.1, 0.2, 0.5, 0.4])
+#the larger it is, the faster that the subreddit gets infected
+b_init = np.array([0.8, 1.5, 0.5, 1.3, 0.5, 1.2, 1.6, 1.4, 1.1, 0.5, 0.8, 0.4, 0.9, 1.1, 0.3]) #usualy range from k to 2
+#the larger it is, the faster that the subreddit recovers
+k_init = np.array([0.1, 0.01, 0.2, 0.4, 0.3, 0.4, 0.05, 0.1, 0.2, 0.2, 0.6, 0.3, 0.4, 0.6, 0.2]) # usually range from 0.01 to 0.5
 def main(Y0, T, N, h, M, b, k, subnames):
     Y = Y0
     t = 0 #initial time step
@@ -40,7 +63,11 @@ def main(Y0, T, N, h, M, b, k, subnames):
     #L = np.zeros((N, N)) #matrix of L_jc values; the connectedness of each subreddit, rows and columns ordered same as subnames and within Y
     fileObject = open('conn.pk1', 'rb')
     L = pickle.load(fileObject)
-
+    for d in range(N):
+        for e in range(N):
+            if d > e:
+                L[d,e] = L[e,d]
+    print(L)
     #TEST:
     #L = np.random.uniform(0.2, 0.7, (N,N))
     #print(L)
