@@ -29,8 +29,8 @@ def rk4(y,h,b,k):
     return y+(1/6)*k1+(1/3)*k2+(1/3)*k3+(1/6)*k4
 
 
-#This function corresponds to the probability correction since the connectedness of the 
-#communities corresponds to their intersection, while the union should correspond to the probability 
+#This function corresponds to the probability correction since the connectedness of the
+#communities corresponds to their intersection, while the union should correspond to the probability
 #that an uninfected community gets infected
 #Inputs:
 #    L: Connectedness Matrix
@@ -40,13 +40,13 @@ def rk4(y,h,b,k):
 def probSum(Y,L,t,j):
     #here o is a dummy variable
     T,N,o = np.shape(Y)
-    
+
     terms = []
     for c in range(N-1):
         terms.append(Y[t][c][1]*L[j,c])
-        
-    result = []   
-    
+
+    result = []
+
     for i in range(2,N):
         r = list(combinations(range(1,N),i))
         for m in r:
@@ -54,16 +54,16 @@ def probSum(Y,L,t,j):
             for t in range(len(m)):
                 term *= terms[m[t]]
             result.append(term)
-            
-    if N % 2 == 0:    
+
+    if N % 2 == 0:
         return -1*sum(result)
-    else: 
+    else:
         return -1*sum(result)+sum(terms)
-                
-        
-    
-        
-        
+
+
+
+
+
 
 #Now we added a stepper through time given initial conditions
 #t0: starting time

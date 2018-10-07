@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>About the Project</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<!-- html --> 
+<meta name="src" content="hacknc2018.tex"> 
+<link rel="stylesheet" type="text/css" href="hacknc2018.css"> 
+</head><body 
+>
+   <div class="maketitle">
+
+
+
+<h2 class="titleHead">About the Project</h2>
+<div class="author" ><span 
+class="cmr-12">D. Brown, B. Fullwood, N. Konz, T. Richards, E. Yelton</span></div><br />
+<div class="date" ><span 
+class="cmr-12">October 7, 2018</span></div>
+   </div>
+   <h3 class="sectionHead"><span class="titlemark">1   </span> <a 
+ id="x1-10001"></a>Main Idea</h3>
+<!--l. 14--><p class="noindent" >The questions that sparked this project were &#8217;How are ideas spread?&#8217; and &#8217;Can we
+model this behavior?&#8217;. With internet access, &#8220;ideas&#8221; are spread more rapidly than
+ever. Under the current polarized political climate as well as controversies of foul play
+by social media platforms there seems to be a heightened interest in such behavior.
+Our hypothesis is that <span 
+class="cmbx-10">the spread of ideas can be modeled by the behavior of</span>
+<span 
+class="cmbx-10">infection.</span>
+<!--l. 16--><p class="noindent" >
+   <h3 class="sectionHead"><span class="titlemark">2   </span> <a 
+ id="x1-20002"></a>Method</h3>
+<!--l. 18--><p class="noindent" >To probe this hypothesis we used data retrieved from Reddit, using the python
+Reddit API wrapper PRAW. We used this data to get a measure of the
+&#8217;connectedness&#8217; <span 
+class="cmmi-10">L </span>between various subreddits; This term is a metric of how many
+users on one subreddit are also active on some other chosen subreddit. For example,
+if we want to determined the connectedness <span 
+class="cmmi-10">L </span>of two subreddits indexed with <span 
+class="cmmi-10">j </span>and
+<span 
+class="cmmi-10">k</span>, we look at the top <span 
+class="cmmi-10">M </span>= 100 posts in the smaller (fewer subscriber) subreddit, and
+see how many of the authors from that list have posted in the other subreddit. So, we
+define <span 
+class="cmmi-10">L </span>as
+   <table 
+class="equation"><tr><td><a 
+ id="x1-2001r1"></a>
+
+   <center class="math-display" >
+<img 
+src="hacknc20180x.png" alt="L  &#x2261; Nj,k&#x2261;  No. of-users that-post-in-both.
+ jk   M      Total no. of users sampled
+" class="math-display" ></center></td><td class="equation-label">(1)</td></tr></table>
+<!--l. 21--><p class="nopar" >
+These <span 
+class="cmmi-10">L </span>values are part of the realistic basis for our simulation.
+<!--l. 23--><p class="indent" >   The mathematical model we used to simulate the spread of the ideas
+within a single subreddit is derivde from the SIR model of the spread of
+disease <span class="cite">[<a 
+href="#XSIR">1</a>]</span>, which gives a set a 3 coupled ODEs described by D. Smith and L.
+Moore,
+   <table 
+class="equation"><tr><td><a 
+ id="x1-2002r2"></a>
+   <center class="math-display" >
+<img 
+src="hacknc20181x.png" alt="ds(t)-= - bs(t)i(t)
+ dt
+di(t)
+ dt  = - bs(t)i(t)- ki(t)
+dr(t)-
+ dt  = ki(t)
+di(t)   ds(t)   dr(t)
+-dt- + -dt--+ -dt--= 0
+" class="math-display" ></center></td><td class="equation-label">(2)</td></tr></table>
+<!--l. 31--><p class="nopar" >
+<!--l. 33--><p class="indent" >   where the <span 
+class="cmmi-10">s,i,r </span>are just the percentages of the population (of a given community)
+susceptible, infected, and recovering, respectively (mutually exclusive of course). In
+our analysis we used the analogy that s is the percentage of users of the given
+subreddit who have not seen the &#8217;idea&#8217;, i is the percentage of users actively
+discussing and/or posting about the idea, and r corresponds to the percentage
+of users who have previously been &#8217;infected&#8217; and are no longer posting on
+such an idea. Note that the above equation have constants <span 
+class="cmmi-10">b </span>and <span 
+class="cmmi-10">k </span>that
+correspond to the contagion constant (the number of &#8217;contacts&#8217; needed to
+spread the idea) and the recovery constant (the fraction of people who will
+forget about certain idea over a certain time interval), respectively. The
+last equation indicates that our model assumes that the total population of
+Reddit users for a given subreddit does not change over time. Note that
+we also assume the constants <span 
+class="cmmi-10">b </span>and <span 
+class="cmmi-10">k </span>to be different for each subreddit or
+
+community. This means that an idea&#8217;s propagation will depend on the subreddit
+community that it&#8217;s receiving it. For example, subreddits that generally
+facilate the fast spread of new ideas will have a higher <span 
+class="cmmi-10">b</span>, while subreddits that
+usually forget about popular trends quickly will have a higher <span 
+class="cmmi-10">r</span>. For our
+simulations, we took educated guesses about the best <span 
+class="cmmi-10">b </span>and <span 
+class="cmmi-10">r </span>values for the
+subreddits.
+<!--l. 34--><p class="indent" >   In order to actually solve the ODE&#8217;s for each community that we&#8217;re considering,
+we used a Runge-Kutta 4th order integration method (ODE solver) to solve the
+system of equations, which we run for each time step, for each system of each
+community.
+<!--l. 35--><p class="indent" >   However, these ODE&#8217;s only model the spread of ideas <span 
+class="cmbx-10">within </span>subreddits.
+We also model the spread of ideas <span 
+class="cmbx-10">between </span>subreddits, using a form of
+conditional probabilistic Markov chain derived from the connectedness values. Say
+that we have <span 
+class="cmmi-10">N </span>subreddits in total, each with different <span 
+class="cmmi-10">L </span>connectedness
+values between every pair of them. For every noninfected subreddit, at each
+time step we estimate the probability of the subreddit becoming infected
+from any one of the infected subreddits, using the following (normalized)
+estimate (which sums over the other <span 
+class="cmmi-10">N </span><span 
+class="cmsy-10">- </span>1 subreddits, which are indexed by
+<span 
+class="cmmi-10">k</span>:
+   <table 
+class="equation"><tr><td><a 
+ id="x1-2003r3"></a>
+   <center class="math-display" >
+<img 
+src="hacknc20182x.png" alt="                        th                  ---1--N&#x2211;- 1
+Probability for infection of j subreddit &#x2261; P (t)j = N - 1   Ljkik(t)
+                                                 k&#x2044;=j
+" class="math-display" ></center></td><td class="equation-label">(3)</td></tr></table>
+<!--l. 38--><p class="nopar" >
+<!--l. 40--><p class="indent" >   Notice that the <span 
+class="cmmi-10">N </span><span 
+class="cmsy-10">&#x00D7; </span><span 
+class="cmmi-10">N </span>matrix of <span 
+class="cmmi-10">L </span>values is essentially used as a transition
+matrix from Markov chain theory. The higher this probability, the higher the chance
+that at the time step, the <span 
+class="cmmi-10">jth </span>subreddit will become infected. This calculation is done
+for each of the uninfected subreddits.
+<!--l. 41--><p class="indent" >   Given more time than the 24-hour limit, we would&#8217;ve liked to slightly
+correct the infection probability computation by accounting for the generalized
+inclusion-exclusion principle of probabilities (to avoid over-counting). We also wanted
+to compare our results to real reddit data over time, but it was difficult to get this
+type of specific data for the precise range of times that we needed. We visualized this
+entire process on the main page.
+
+<!--l. 43--><p class="noindent" >
+   <h3 class="likesectionHead"><a 
+ id="x1-30002"></a>References</h3>
+<!--l. 43--><p class="noindent" >
+   <div class="thebibliography">
+   <p class="bibitem" ><span class="biblabel">
+ [1]<span class="bibsp">&#x00A0;&#x00A0;&#x00A0;</span></span><a 
+ id="XSIR"></a>Smith D., Moore L. (2004 December) &#8221;The SIR Model for Spread of
+   Disease - The Differential Equation Model&#8221; <span 
+class="cmti-10">Convergence </span><br 
+class="newline" />Retrieved October 6, 2018 <span 
+class="cmtt-10">https://www.maa.org/press/periodicals/loci/joma</span><br 
+class="newline" /><span 
+class="cmtt-10">/the-sir-model-for-spread-of-disease-the-differential-equation-model</span></p></div>
+    
+</body></html> 
+
+
+
