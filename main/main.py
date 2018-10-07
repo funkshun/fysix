@@ -8,17 +8,13 @@ import pickle
 # INITIALIZATION #
 
 T_init = 100 #total number of time steps
-N_init = 5 #total number of communities
-<<<<<<< HEAD
-M_init = 1000
-b_init = 0.5
-k_init = 0.09
-=======
+N_init = 15 #total number of communities
 M_init = 100
-b_init = np.zeros(N_init) #the larger it is, the faster that the subreddit gets infected
-k_init = np.zeros(N_init)#the larger it is, the faster that the subreddit recovers
->>>>>>> 2fac3fda3db9101ddb3168806369c43d2acde746
 h_init = 1
+Y_init = np.zeros((T_init, N_init, 3))  #initial data for s, i, r for each community. It's an array of T arrays that have N arrays that each of the 3 values of s, i ,r
+for j in range(N_init): #initialize each jth sub with (s,i,r) = (1,0,0)
+    Y_init[0][j] = np.array([1.0, 0.0, 0.0])
+
 subnames_init = ["esist",
 "The_Mueller",
 "liberal",
@@ -34,11 +30,6 @@ subnames_init = ["esist",
 "LateStageCapitalism",
 "dankmemes",
 "pics"] #a list of size N of subreddit names (strings) ORDERED THE SAME as the 3-arrays in Y_init
-
-#example for how to initalize the values for the subreddit indexed 2 (from 0,1,2.... N-1):
-Y_init = np.zeros((T_init, N_init, 3))  #initial data for s, i, r for each community. It's an array of T arrays that have N arrays that each of the 3 values of s, i ,r
-for j in range(N_init): #initialize each jth sub with (s,i,r) = (1,0,0)
-    Y_init[0][j] = np.array([1.0, 0.0, 0.0])
 
 #if I want to initialize explainlikeimfive as being infected with some i, while the other communities as non-infected (so s,i,r = 0):
 Y_init[0][0] = np.array([0.7, 0.3, 0.0]) # index of Y_init: 0 is the time (so 0 since this is initial), the next index is the index of sub you want to give initial condition
@@ -58,7 +49,9 @@ Y_init[0][13] = np.array([0.9, 0.1, 0.0])
 Y_init[0][14] = np.array([1.0, 0.0, 0.0])
 #initialize b and k:
 
+#the larger it is, the faster that the subreddit gets infected
 b_init = np.array([0.8, 1.5, 0.5, 1.3, 0.5, 1.2, 1.6, 1.4, 1.1, 0.5, 0.8, 0.4, 0.9, 1.1, 0.3]) #usualy range from k to 2
+#the larger it is, the faster that the subreddit recovers
 k_init = np.array([0.1, 0.01, 0.2, 0.4, 0.3, 0.4, 0.05, 0.1, 0.2, 0.2, 0.6, 0.3, 0.4, 0.6, 0.2]) # usually range from 0.01 to 0.5
 def main(Y0, T, N, h, M, b, k, subnames):
     Y = Y0
