@@ -189,4 +189,4 @@ def simulate(simName): # Y0, T, N, h, M, b, k, subnames
         for i in range(T):
             final_i.append(Y[i][j][1])
         final[subnames[j]] = final_i
-    return final
+    return (L, final)
