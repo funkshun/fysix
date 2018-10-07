@@ -1,4 +1,5 @@
 # USEFUL FUNCTIONS #
+import numpy as np
 
 #So these are the ODEs set up for a single community
 #Here the quanity y is the following vector:
