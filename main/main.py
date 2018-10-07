@@ -4,6 +4,7 @@ import hackncutils as util
 import redditutils as red
 
 # INITIALIZATION #
+
 T_init = 100 #total number of time steps
 N_init = 5 #total number of communities
 M_init = 1000
@@ -11,6 +12,7 @@ b_init = np.zeros(N_init) #the larger it is, the faster that the subreddit gets 
 k_init = np.zeros(N_init)#the larger it is, the faster that the subreddit recovers
 h_init = 1
 subnames_init = ["AskReddit", "explainlikeimfive", "offmychest", "t1", "t2"] #a list of size N of subreddit names (strings) ORDERED THE SAME as the 3-arrays in Y_init
+
 #example for how to initalize the values for the subreddit indexed 2 (from 0,1,2.... N-1):
 Y_init = np.zeros((T_init, N_init, 3))  #initial data for s, i, r for each community. It's an array of T arrays that have N arrays that each of the 3 values of s, i ,r
 for j in range(N_init): #initialize each jth sub with (s,i,r) = (1,0,0)
