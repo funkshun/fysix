@@ -48,6 +48,7 @@ def _connectivity(sub1, sub2, draws):
                     break
         except:
             pass
+    print("Connected " + sub1 + " with " + sub2)
     return (sum_connected / draws)
 
 #Accepts a list of subreddits and a number of random draws
@@ -67,7 +68,7 @@ def connectivity(communities, draws):
                 sec = communities[j]
                 ret[i][j] = _connectivity(first, sec, draws)
                 #ret[sec + ", " + sec] = _connectivity(first, sec, draws)
-
+    print("connectivities finished")
     for k in range(0, len(communities)):
         for l in range(i, len(communities)):
             if k == l:
@@ -77,7 +78,7 @@ def connectivity(communities, draws):
                 sec = communities[l]
                 max_conn = max(ret[k][l], max_conn)
                 #ret[sec + ", " + sec] = _connectivity(first, sec, draws)
-
+    print("Max Connectivity Calculated")
     for m in range(0, len(communities)):
         for n in range(i, len(communities)):
             if m == n:
@@ -90,6 +91,7 @@ def connectivity(communities, draws):
     output = open('conn.pk1', 'wb')
     pickle.dump(ret, output)
     output.close()
+    print("Receive The Pickle")
 
 
 def del_dups(seq):
@@ -103,7 +105,7 @@ def del_dups(seq):
     del seq[pos:]
 
 def main():
-    subs = ['esist', 'The_Mueller', 'liberal', 'politcs', 'neoliberal']
+    subs = ['esist', 'The_Mueller', 'liberal', 'politcs', 'neoliberal', 'TrumpCriticizesTrump', 'EnoughTrumpSpam', 'Impeach_Trump', 'PoliticalHumor', 'funny', 'news', 'socialism', 'LateStageCapitalism', 'dankmemes', 'pics']
     connectivity(subs, 100)
 
 if __name__ == '__main__':
