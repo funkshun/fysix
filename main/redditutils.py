@@ -46,8 +46,7 @@ def _connectivity(sub1, sub2, draws):
                     break
         except:
             pass
-<<<<<<< HEAD
-    return 2 * (sum_connected / draws)
+    return (sum_connected / draws)
 
 def group_connectivity(communities, draws):
     ret = {}
@@ -86,13 +85,6 @@ def group_connectivity(communities, draws):
 def connectivity(sub1, sub2, conns):
     return conns[sub1 + ", " + sub2]
 
-
-        
-=======
-    return (sum_connected / draws)
-
-
->>>>>>> 945aa1e66f7123543b3b3eedb6366c974ce5fcf4
 
 def del_dups(seq):
     seen = {}
