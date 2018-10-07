@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import hackncutils as util
 import redditutils as red
 import pickle
+import os
 
 # INITIALIZATION #
 def initialize(simName): #returns a dict specifying prechosen initial quantities. takes in simulation name out of smallpolitical, political
@@ -121,6 +122,7 @@ def simulate(simName): # Y0, T, N, h, M, b, k, subnames
 
     #creating connectivity matrix
     #L = np.zeros((N, N)) #matrix of L_jc values; the connectedness of each subreddit, rows and columns ordered same as subnames and within Y
+    #os.chdir(r'C:\Users\tumuz\git\fysix\main')
     fileObject = open(picklefilename, 'rb')
     L = pickle.load(fileObject)
     #print(L)
