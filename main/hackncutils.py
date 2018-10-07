@@ -1,4 +1,9 @@
 # USEFUL FUNCTIONS #
+<<<<<<< HEAD
+=======
+import numpy as np
+
+>>>>>>> 1941784207fcb8cbdcdb8281cd741e75a6a82ace
 #So these are the ODEs set up for a single community
 #Here the quanity y is the following vector:
 #x = [s,i,r]

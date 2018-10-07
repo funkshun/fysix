@@ -15,17 +15,19 @@ def main():
 
     hits = 0
     tot = 0
-    source = 'The_Donald'
+    source = 'neoliberal'
     top_posts = reddit.subreddit(source).top(limit=100)
     for submission in top_posts:
         submission.comments.replace_more(limit=0)
         for comments in submission.comments:
             try:
                 check = comments.body.lower()
-                if 'trump' in check:
+                if 'technocrat' in check:
+                    print(f'technocrat time: {comments.created}')
                     hits += 1
                     tot += 1
-                elif 'donald' in check:
+                elif 'global' in check:
+                    print(f'global time: {comments.created}')
                     hits += 1
                     tot += 1
                 else:
