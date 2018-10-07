@@ -2,12 +2,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 import hackncutils as util
 import redditutils as red
+import pickle
 
 # INITIALIZATION #
 
 T_init = 100 #total number of time steps
 N_init = 5 #total number of communities
-M_init = 10
+M_init = 100
 b_init = np.zeros(N_init) #the larger it is, the faster that the subreddit gets infected
 k_init = np.zeros(N_init)#the larger it is, the faster that the subreddit recovers
 h_init = 1
@@ -33,7 +34,8 @@ def main(Y0, T, N, h, M, b, k, subnames):
 
     #creating connectivity matrix
     #L = np.zeros((N, N)) #matrix of L_jc values; the connectedness of each subreddit, rows and columns ordered same as subnames and within Y
-    L = red.connectivity(subnames, M)
+    fileObject = open('conn.pk1', 'r')
+    L = pickle.load(fileObject)
 
     #TEST:
     #L = np.random.uniform(0.2, 0.7, (N,N))
