@@ -9,7 +9,7 @@ from bokeh.models.glyphs import MultiLine
 from bokeh.models.markers import Circle
 from bokeh.colors import RGB
 
-pickles = ["smallpolitical", "politcal"]
+pickles = ["smallpolitical", "political", "entertainment"]
 
 ## Bokeh initialization code
 hv.extension('bokeh')
