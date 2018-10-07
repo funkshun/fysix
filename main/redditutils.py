@@ -1,4 +1,6 @@
 import praw
+import numpy as np
+import pickle
 
 #reddit authentication (Boo's Account "Deklyned")
 reddit = praw.Reddit(user_agent='HackNCfysix',
@@ -10,7 +12,7 @@ reddit = praw.Reddit(user_agent='HackNCfysix',
 #posters randomly selected who post in both subs over number selected
 
 def _connectivity(sub1, sub2, draws):
-    
+
     sum_connected = 0
     authors = []
     if reddit.subreddit(sub1).subscribers > reddit.subreddit(sub2).subscribers:
@@ -22,7 +24,7 @@ def _connectivity(sub1, sub2, draws):
 
     #get sum posts
     init_posts = reddit.subreddit(small).top(limit=draws)
-    
+
     for post in init_posts:
         try:
             #if we have enough unique authors, finish
@@ -48,8 +50,13 @@ def _connectivity(sub1, sub2, draws):
             pass
     return (sum_connected / draws)
 
-def group_connectivity(communities, draws):
-    ret = {}
+#Accepts a list of subreddits and a number of random draws
+#Returns a matrix of connectivity values
+#Reference initial list of subreddits for labels
+#Connectivity for communities[i] -> communities[j]
+#Is in ret[i][j]
+def connectivity(communities, draws):
+    ret = np.zeros((len(communities),len(communities)))
     max_conn = 0
     for i in range(0, len(communities)):
         for j in range(i, len(communities)):
@@ -58,7 +65,7 @@ def group_connectivity(communities, draws):
             else:
                 first = communities[i]
                 sec = communities[j]
-                ret[first + ", " + sec] = _connectivity(first, sec, draws)
+                ret[i][j] = _connectivity(first, sec, draws)
                 #ret[sec + ", " + sec] = _connectivity(first, sec, draws)
 
     for k in range(0, len(communities)):
@@ -68,22 +75,21 @@ def group_connectivity(communities, draws):
             else:
                 first = communities[k]
                 sec = communities[l]
-                max_conn = max(ret[first + ", " + sec], max_conn)
+                max_conn = max(ret[k][l], max_conn)
                 #ret[sec + ", " + sec] = _connectivity(first, sec, draws)
-    
-    for l in range(0, len(communities)):
-        for m in range(i, len(communities)):
-            if l == m:
+
+    for m in range(0, len(communities)):
+        for n in range(i, len(communities)):
+            if m == n:
                 pass
             else:
                 first = communities[l]
-                sec = communities[m]
-                ret[first + ", " + sec] = ret[first + ", " + sec] / max_conn
+                ret[m][n] = ret[m][n] / max_conn
+                ret[n][m] = ret[m][n] / max_conn
                 #ret[sec + ", " + sec] = _connectivity(first, sec, draws)
-    return ret
-
-def connectivity(sub1, sub2, conns):
-    return conns[sub1 + ", " + sub2]
+    output = open('conn.pk1', 'wb')
+    pickle.dump(ret, output)
+    output.close()
 
 
 def del_dups(seq):
@@ -97,7 +103,8 @@ def del_dups(seq):
     del seq[pos:]
 
 def main():
-    print(connectivity('AskReddit', 'explainlikeimfive', 1000))
+    subs = ['esist', 'The_Mueller', 'liberal', 'politcs', 'neoliberal']
+    connectivity(subs, 100)
 
 if __name__ == '__main__':
     main()
