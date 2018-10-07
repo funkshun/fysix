@@ -17,7 +17,7 @@ def main():
 
     hits = 0
     tot = 0
-    source = 'memes'
+    source = 'mothmemes'
     time_hits = []
     top_posts = reddit.subreddit(source).top(limit=1000)
 
@@ -48,7 +48,7 @@ def main():
                         hits += 1
                         tot += 1
                         time_hits.append(submission.created)
-                    elif lamreg.search(token):
+                    elif lampreg.search(token):
                         print(f'lamp comment time: {comments.created}')
                         hits += 1
                         tot += 1
@@ -63,7 +63,7 @@ def main():
     print(hits/tot)
     print(time_hits)
 
-    csvfile = 'regex_test.csv'
+    csvfile = 'mothmemessub.csv'
     with open(csvfile, 'w+') as output:
         writer = csv.writer(output, lineterminator='\n')
         for val in time_hits:
