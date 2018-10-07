@@ -1,0 +1,19 @@
+graph G {
+	graph [nodesep=0.5 overlap=false spines=ortho]
+	node [color=green shape=circle]
+	liberal
+	democrats
+	politics
+	democraticparty
+	BlueMidterm2018
+	liberal -- democrats [label=0.48]
+	liberal -- politics [label=0.52]
+	liberal -- democraticparty [label=0.0]
+	liberal -- BlueMidterm2018 [label=0.47058823529411764]
+	democrats -- politics [label=0.36]
+	democrats -- democraticparty [label=0.04]
+	democrats -- BlueMidterm2018 [label=0.2058823529411765]
+	politics -- democraticparty [label=0.16]
+	politics -- BlueMidterm2018 [label=1.0]
+	democraticparty -- BlueMidterm2018 [label=0.08823529411764705]
+}
