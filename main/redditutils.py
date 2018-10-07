@@ -1,4 +1,6 @@
 import praw
+import numpy as np
+import pickle
 
 #reddit authentication (Boo's Account "Deklyned")
 reddit = praw.Reddit(user_agent='HackNCfysix',
@@ -54,12 +56,7 @@ def _connectivity(sub1, sub2, draws):
 #Connectivity for communities[i] -> communities[j]
 #Is in ret[i][j]
 def connectivity(communities, draws):
-    ret = []
-    for a in range(len(communities)):
-        x = []
-        for b in range(len(communities)):
-            x.append(0)
-        ret.append(x)
+    ret = np.zeros((len(communities),len(communities)))
     max_conn = 0
     for i in range(0, len(communities)):
         for j in range(i, len(communities)):
@@ -89,7 +86,9 @@ def connectivity(communities, draws):
                 first = communities[l]
                 ret[m][n] = ret[m][n] / max_conn
                 #ret[sec + ", " + sec] = _connectivity(first, sec, draws)
-    return ret
+    output = open('conn.pk1', 'wb')
+    pickle.dump(ret, output)
+    output.close()
 
 
 def del_dups(seq):
@@ -103,7 +102,8 @@ def del_dups(seq):
     del seq[pos:]
 
 def main():
-    print(connectivity('AskReddit', 'explainlikeimfive', 1000))
+    subs = ['esist', 'The_Mueller', 'liberal', 'politcs', 'neoliberal']
+    connectivity(subs, 100)
 
 if __name__ == '__main__':
     main()
