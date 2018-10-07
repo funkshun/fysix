@@ -18,7 +18,7 @@ def main():
     tot = 0
     source = 'memes'
     time_hits = []
-    top_posts = reddit.subreddit(source).top(limit=100)
+    top_posts = reddit.subreddit(source).top(limit=1000)
     for submission in top_posts:
         if 'moth' in submission.title:
             print(f'moth title time: {submission.created}')
@@ -54,7 +54,7 @@ def main():
     print(hits/tot)
     print(time_hits)
 
-    csvfile = "/Users/davisbrown/hackNC2018/fysix/examples/moth_meme.csv"
+    csvfile = "/Users/davisbrown/hackNC2018/fysix/examples/moth_meme2.csv"
     with open(csvfile, "w") as output:
         writer = csv.writer(output, lineterminator='\n')
         for val in time_hits:

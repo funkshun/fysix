@@ -9,9 +9,15 @@ import pickle
 
 T_init = 100 #total number of time steps
 N_init = 5 #total number of communities
+<<<<<<< HEAD
+M_init = 1000
+b_init = 0.5
+k_init = 0.09
+=======
 M_init = 100
 b_init = np.zeros(N_init) #the larger it is, the faster that the subreddit gets infected
 k_init = np.zeros(N_init)#the larger it is, the faster that the subreddit recovers
+>>>>>>> 2fac3fda3db9101ddb3168806369c43d2acde746
 h_init = 1
 subnames_init = ["esist",
 "The_Mueller",
