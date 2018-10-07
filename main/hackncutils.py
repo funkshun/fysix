@@ -28,6 +28,7 @@ def rk4(y,h,b,k):
 
     return y+(1/6)*k1+(1/3)*k2+(1/3)*k3+(1/6)*k4
 
+
 #This function corresponds to the probability correction since the connectedness of the 
 #communities corresponds to their intersection, while the union should correspond to the probability 
 #that an uninfected community gets infected
@@ -51,7 +52,7 @@ def probSum(Y,L,t,j):
         for m in r:
             term = 1
             for t in range(len(m)):
-                term *= terms[m[i]]
+                term *= terms[m[t]]
             result.append(term)
             
     if N % 2 == 0:    
