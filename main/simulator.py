@@ -158,7 +158,7 @@ def simulate(simName): # Y0, T, N, h, M, b, k, subnames
                         #print((j,c))
                         #print(i_c)
                         sm += L[j,c]*i_c
-                prob_infection = (sm)/ (N - 1) #probability of infection of jth subreddit by the other subs
+                prob_infection = (sm)+ util.probSum(Y,L,t,j) #probability of infection of jth subreddit by the other subs
                 u = np.random.rand()
                 #print(prob_infection)
                 if u < prob_infection:
