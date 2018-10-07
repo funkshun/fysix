@@ -109,6 +109,7 @@ def main():
     # 'political
     #subs = ['esist', 'The_Mueller', 'liberal', 'politcs', 'neoliberal', 'TrumpCriticizesTrump', 'EnoughTrumpSpam', 'Impeach_Trump', 'PoliticalHumor', 'funny', 'news', 'socialism', 'LateStageCapitalism', 'dankmemes', 'pics']
     subs = pickles[argv[1]]
+    start_time = time.time()
     L = connectivity(subs, 100)
     
     with open(argv[1] + '.pk1', 'wb+') as output:
