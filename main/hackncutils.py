@@ -46,10 +46,16 @@ def probSum(Y,L,t,j):
         terms.append(Y[t][c][1]*L[j,c])
 
     result = []
+<<<<<<< HEAD
     print(len(terms))
 
     for i in range(1,N):
         r = list(combinations(range(N),i))
+=======
+
+    for i in range(2,N):
+        r = list(combinations(range(1,N),i))
+>>>>>>> 3fb9aa8da5398621194d81ecb5f1ac2364185067
         for m in r:
             term = 1
             for t in range(len(m)):

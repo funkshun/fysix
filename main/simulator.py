@@ -124,9 +124,9 @@ def initialize(simName): #returns a dict specifying prechosen initial quantities
         y_init[2] = np.array([1.0, 0.0, 0.0])
         y_init[3] = np.array([0.9, 0.1, 0.0])
         y_init[4] = np.array([1.0, 0.0, 0.0])
-        y_init[1] = np.array([0.9999, 0.0001, 0.0])
-        y_init[2] = np.array([1.0, 0.0, 0.0])
-        y_init[3] = np.array([0.5, 0.5, 0.0])
+        y_init[5] = np.array([0.9999, 0.0001, 0.0])
+        y_init[6] = np.array([1.0, 0.0, 0.0])
+        y_init[7] = np.array([0.5, 0.5, 0.0])
         #initialize b and k:
 
         #the larger it is, the faster that the subreddit gets infected
@@ -135,6 +135,71 @@ def initialize(simName): #returns a dict specifying prechosen initial quantities
         k_init = np.array([0.2, 0.1, 0.3, 0.1, 0.12, 0.1, 0.04, 0.01]) # usually range from 0.01 to 0.5
 
         masterlist = ['entertainment.pk1', T_init, N_init, M_init, subnames_init, b_init, k_init, y_init]
+
+        return masterlist
+
+    if simName == 'gaming':
+        T_init = 200 #total number of time steps
+        N_init = 20 #total number of communities
+        M_init = 100
+        h_init = 1
+        y_init = np.zeros((N_init,3))  #initial data for s, i, r for each community. It's an array of T arrays that have N arrays that each of the 3 values of s, i ,r
+        for j in range(N_init): #initialize each jth sub with (s,i,r) = (1,0,0)
+            y_init[j] = np.array([1.0, 0.0, 0.0])
+
+        subnames_init = ['gaming',
+        'Overwatch',
+        'leagueoflegends',
+        'Warframe',
+        'Rainbow6',
+        'titanfall',
+        'DestinyTheGame',
+        'pcmasterrace',
+        'Games',
+        'skyrim',
+        'csgo',
+        'DotA2',
+        'wow',
+        'Fallout',
+        'PUBG',
+        'FortNiteBR',
+        'hearthstone',
+        'smashbros',
+        'starcraft',
+        'truegaming']
+        #a list of size N of subreddit names (strings) ORDERED THE SAME as the 3-arrays in Y_init
+
+        #simulatingstring = "Trump"
+
+        #if I want to initialize explainlikeimfive as being infected with some i, while the other communities as non-infected (so s,i,r = 0):
+        y_init[0] = np.array([1.0, 0.0, 0.0]) # index of Y_init: 0 is the time (so 0 since this is initial), the next index is the index of sub you want to give initial condition
+        y_init[1] = np.array([1.0, 0.0, 0.0])
+        y_init[2] = np.array([1.0, 0.0, 0.0])
+        y_init[3] = np.array([1.0, 0.0, 0.0])
+        y_init[4] = np.array([1.0, 0.0, 0.0])
+        y_init[5] = np.array([1.0, 0.0, 0.0])
+        y_init[6] = np.array([1.0, 0.0, 0.0])
+        y_init[7] = np.array([1.0, 0.0, 0.0])
+        y_init[8] = np.array([1.0, 0.0, 0.0])
+        y_init[9] = np.array([0.7, 0.3, 0.0])
+        y_init[10] = np.array([1.0, 0.0, 0.0])
+        y_init[11] = np.array([1.0, 0.0, 0.0])
+        y_init[12] = np.array([1.0, 0.0, 0.0])
+        y_init[13] = np.array([0.6, 0.4, 0.0])
+        y_init[14] = np.array([1.0, 0.0, 0.0])
+        y_init[15] = np.array([1.0, 0.0, 0.0])
+        y_init[16] = np.array([1.0, 0.0, 0.0])
+        y_init[17] = np.array([1.0, 0.0, 0.0])
+        y_init[18] = np.array([1.0, 0.0, 0.0])
+        y_init[19] = np.array([1.0, 0.0, 0.0])
+        #initialize b and k:
+
+        #the larger it is, the faster that the subreddit gets infected
+        b_init = np.array([1.5, 1.0, 0.9, 0.4, 0.5, 0.2, 0.7, 1.0, 0.8, 0.6, 0.8, 0.4, 0.5, 0.6, 0.7, 1.5, 0.6, 0.5, 0.2, 0.6]) #usualy range from k to 2
+        #the larger it is, the faster that the subreddit recovers
+        k_init = np.array([0.2, 0.1, 0.1, 0.05, 0.12, 0.05, 0.01, 0.1, 0.2, 0.3, 0.2, 0.1, 0.3, 0.2, 0.09, 0.05, 0.2, 0.2, 0.1, 0.3]) # usually range from 0.01 to 0.5
+
+        masterlist = ['gaming.pk1', T_init, N_init, M_init, subnames_init, b_init, k_init, y_init]
 
         return masterlist
 #format: 'pickle name' : [picklefilename (str), T, N, M, subnames (list of str), b array, k array, initialization array(N, 3)]
