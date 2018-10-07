@@ -1,17 +1,19 @@
 import numpy as np
+import pickle
 import matplotlib.pyplot as plt
 import hackncutils as util
 import redditutils as red
+import pickle
 
 # INITIALIZATION #
 
 T_init = 100 #total number of time steps
 N_init = 5 #total number of communities
-M_init = 10
+M_init = 100
 b_init = np.zeros(N_init) #the larger it is, the faster that the subreddit gets infected
 k_init = np.zeros(N_init)#the larger it is, the faster that the subreddit recovers
 h_init = 1
-subnames_init = ["AskReddit", "explainlikeimfive", "offmychest", "outoftheloop", "politics"] #a list of size N of subreddit names (strings) ORDERED THE SAME as the 3-arrays in Y_init
+subnames_init = ["esist", "The_Mueller", "liberal", "politics", "neoliberal"] #a list of size N of subreddit names (strings) ORDERED THE SAME as the 3-arrays in Y_init
 
 #example for how to initalize the values for the subreddit indexed 2 (from 0,1,2.... N-1):
 Y_init = np.zeros((T_init, N_init, 3))  #initial data for s, i, r for each community. It's an array of T arrays that have N arrays that each of the 3 values of s, i ,r
@@ -33,7 +35,8 @@ def main(Y0, T, N, h, M, b, k, subnames):
 
     #creating connectivity matrix
     #L = np.zeros((N, N)) #matrix of L_jc values; the connectedness of each subreddit, rows and columns ordered same as subnames and within Y
-    L = red.connectivity(subnames, M)
+    fileObject = open('conn.pk1', 'r')
+    L = pickle.load(fileObject)
 
     #TEST:
     #L = np.random.uniform(0.2, 0.7, (N,N))
@@ -81,21 +84,16 @@ def main(Y0, T, N, h, M, b, k, subnames):
 
 x = main(Y_init, T_init, N_init, h_init, M_init, b_init, k_init, subnames_init)
 #print(x)
-x1 = np.array(x["AskReddit"])
-x2 = np.array(x["explainlikeimfive"])
-#print(x2)
-x3 = np.array(x["offmychest"])
-x4 = np.array(x["t1"])
-x5 = np.array(x["t2"])
+
 
 t = np.arange(T_init)
 
 plt.figure(1)
-plt.plot(t, x1, 'r', label = "AskReddit")
-plt.plot(t, x2, 'g', label = "eli5")
-plt.plot(t, x3, 'b', label = "offmychest")
-plt.plot(t, x4, 'k', label = "t1")
-plt.plot(t, x5, 'y', label = "t2")
+
+for name in subnames_init:
+    x1 = np.array(x[name])
+    plt.plot(t, x1, c=numpy.random.rand(3,), label = name)
+
 plt.grid()
 plt.legend()
 plt.show()
