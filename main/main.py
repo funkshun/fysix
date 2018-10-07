@@ -7,8 +7,8 @@ import redditutils as red
 T_init = 100 #total number of time steps
 N_init = 5 #total number of communities
 M_init = 1000
-b_init = 5
-k_init = 0.09
+b_init = np.zeros(N_init) #the larger it is, the faster that the subreddit gets infected
+k_init = np.zeros(N_init)#the larger it is, the faster that the subreddit recovers
 h_init = 1
 subnames_init = ["AskReddit", "explainlikeimfive", "offmychest", "t1", "t2"] #a list of size N of subreddit names (strings) ORDERED THE SAME as the 3-arrays in Y_init
 #example for how to initalize the values for the subreddit indexed 2 (from 0,1,2.... N-1):
@@ -18,7 +18,12 @@ for j in range(N_init): #initialize each jth sub with (s,i,r) = (1,0,0)
 
 #if I want to initialize explainlikeimfive as being infected with some i, while the other communities as non-infected (so s,i,r = 0):
 Y_init[0][1] = np.array([0.6, 0.4, 0.0]) # index of Y_init: 0 is the time (so 0 since this is initial), the next index is the index of sub you want to give initial condition
+Y_init[0][3] = np.array([0.2, 0.8, 0.0])
+Y_init[0][0] = np.array([0.4, 0.6, 0.0])
+#initialize b and k:
 
+b_init = np.array([0.2, 0.3, 0.7, 1.0, 0.5])
+k_init = np.array([0.1, 0.1, 0.2, 0.5, 0.4])
 def main(Y0, T, N, h, M, b, k, subnames):
     Y = Y0
     t = 0 #initial time step
@@ -44,7 +49,8 @@ def main(Y0, T, N, h, M, b, k, subnames):
 
         #progress stepper:
         for j in range(N): #steps forward the x = (s, i, r) of each subreddit
-            y_new[j] = util.rk4(y_t[j],h,b,k) #progressing
+            #print(b[j])
+            y_new[j] = util.rk4(y_t[j],h,b[j],k[j]) #progressing
 
         #after running rk4 on each sub, put the y vector of the N new (s,i,r) vectors into big Y:
         Y[t+1] = y_new
