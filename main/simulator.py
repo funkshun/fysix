@@ -174,7 +174,7 @@ def initialize(simName): #returns a dict specifying prechosen initial quantities
         #if I want to initialize explainlikeimfive as being infected with some i, while the other communities as non-infected (so s,i,r = 0):
         y_init[0] = np.array([1.0, 0.0, 0.0]) # index of Y_init: 0 is the time (so 0 since this is initial), the next index is the index of sub you want to give initial condition
         y_init[1] = np.array([1.0, 0.0, 0.0])
-        y_init[2] = np.array([1.0, 0.0, 0.0])
+        y_init[2] = np.array([0.1, 0.9, 0.0])
         y_init[3] = np.array([1.0, 0.0, 0.0])
         y_init[4] = np.array([1.0, 0.0, 0.0])
         y_init[5] = np.array([1.0, 0.0, 0.0])
