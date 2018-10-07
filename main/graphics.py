@@ -13,6 +13,7 @@ pickles = ["smallpolitical", "politcal"]
 
 ## Bokeh initialization code
 hv.extension('bokeh')
+output_file('DataVis.html')
 
 # Code to launch on startup
 def startup():
@@ -36,7 +37,6 @@ def startup():
 def launch(allSubreddits, allConnections, maxSubreddits, maxTimeSteps):
     # Matrices containing constants for each pickles
     numPickles = len(pickles)
-    maxReddits = 20 # Guessing at maximum length
 
     # Store the position, number of subreddits, a
     X = np.zeros((numPickles, maxSubreddits))
