@@ -17,78 +17,72 @@ output_file('DataVis.html')
 
 # Code to launch on startup
 def startup():
-    maxSubreddits = 0
-    maxTimeSteps = 0
-    subreddits = np.array([])
-    connections = np.array([])
-
+    infected = []
+    sub_reference = []
+    connections = []
+    subreddits = []
     for pickle in pickles:
         sim_tuple = simulator.simulate(pickle)
-        connections = sim_tuple[0]
-        subreddits = sim_tuple[1]
-        if len(subreddits) > maxSubreddits:
-            maxSubreddits = len(subreddits)
-        if np.max(len(list(subreddits.values())) > maxTimeSteps):
-            maxTimeSteps = len(subreddits.values())
+        connections.append(sim_tuple[0])
+        subreddits.append(sim_tuple[1])
+        sub_reference.append(sim_tuple[2])
 
-    launch(subreddits, connections, maxSubreddits, maxTimeSteps)
+    launch(subreddits, connections, sub_reference)
 
 
-def launch(allSubreddits, allConnections, maxSubreddits, maxTimeSteps):
+def launch(all_subreddits, all_connections, sub_reference):
     # Matrices containing constants for each pickles
+
     numPickles = len(pickles)
 
     # Store the position, number of subreddits, a
-    X = np.zeros((numPickles, maxSubreddits))
-    Y = np.zeros((numPickles, maxSubreddits))
-    R = np.zeros((numPickles, maxSubreddits))
-    N = np.zeros((numPickles, maxSubreddits))
-    names = {}
-    for i in range(numPickles):
-        names = names.append('')
+    X = []
+    Y = []
+    R = []
 
-    infected = np.zeros((numPickles, maxSubreddits, maxTimeSteps))
-    colors = np.zeros((numPickles, maxSubreddits, maxTimeSteps))
+    for i in range(numPickles):
+        X.append([])
+        Y.append([])
+        R.append([])
+
+    N = []
+
+    infected = all_subreddits
+    colors = []
+    for i in range(numPickles):
+        colors.append(make_color(infected[i]))
 
     ## Unload parameters #######################################################
-    for l in range(len(allSubreddits)):
-        subreddits = allsubReddits[l]
-        connections = allConnections[l]
+    for l in range(len(all_subreddits)):
+        subreddits = all_subreddits[l]
+        connections = all_connections[l]
         total = len(connections) # Number of SubReddits Investigated
-        timeSteps = len(subreddits.values(0)) # Length of the arrays (number of time steps)
-        x = np.zeros(N) # x Position
-        y = np.zeros(N) # y position
-        r = np.zeros(N) # radius of node
-        thisColors = np.zeros([]) # Color for each node at each time
-        names = np.array([]) # SubReddit name
-        thisInfected = np.array([])
+        timeSteps = len(subreddits[0]) # Length of the arrays (number of time steps)
+        x = np.zeros(total) # x Position
+        y = np.zeros(total) # y position
+        r = np.zeros(total) # radius of node
 
-        for name in subreddits: # Loop through dictionary and store keys and values in arrays
-            names = np.append(names, name)
-            infected = np.append(infected, subreddits[name])
+        for i in range(total): # For each sub reddit
+            x[i] = np.random.randint(10) # point's x value
+            y[i] = np.random.randint(10) # point's y value
+            r[i] = np.random.randint(40, 60) # radius
+            #subs[i] = np.random.randint(40, 60) # radius
 
-            for i in range(N): # For each sub reddit
-                x[i] = np.random.randint(N) # point's x value
-                y[i] = np.random.randint(N) # point's y value
-                r[i] = np.random.randint(40, 60) # radius
-                subs[i] = np.random.randint(40, 60) # radius
-                for j in range(10):
-                    thisInfected[i][j] = 1
-                    thisColors[i][j] = RGB(255*infected[i], 20, 180*(1-infected[i]))
         #Add the current subreddit data to the Matrices
         X[l] = x
         Y[l] = y
         R[l] = r
-        N[l] = total
-        infected[l] = thisInfected
-        colors[l] = thisColors
+        N.append(total)
 
         ## Plotting code ########################################################
 
     xdr = DataRange1d()
     ydr = DataRange1d()
 
-    source = ColumnDataSource(dict(x=X[0], y=Y[0], r=R[0], infect = infected[0], subs = sub[0]))
+    curPickle = 0
+
+    source = ColumnDataSource(dict(time=[0, 0, 0], x=X[curPickle], y=Y[curPickle],
+        r=R[curPickle], colors=colors[curPickle], name=sub_reference[curPickle]))
 
     plot = figure(
         title=None, x_range=xdr, y_range=ydr, plot_width=1100, plot_height=700,
@@ -101,18 +95,20 @@ def launch(allSubreddits, allConnections, maxSubreddits, maxTimeSteps):
     tooltips = [
             ('Sub-Reddit Name', '@name'),
             ('URL', '@URL'),
-            ('Subscriber Count', '@subs')
             ]
         ))
 
+
     # Add lines connecting each glyph
-    for i in range(N):
-        for j in range(N):
+    for i in range(N[curPickle]):
+        for j in range(N[curPickle]):
             if j <= i:
                 rgbval = 255 - 255*connections[i][j] # Shade from white to black based on connection strength
                 lineColor = RGB(rgbval, rgbval, rgbval)
                 width = connections[i][j]
-                plot.line([x[i], x[j]], [y[i], y[j]], line_width = np.random.randint(7), line_color = lineColor)
+                x = X[curPickle]; y = Y[curPickle]
+                plot.line([x[i], x[j]], [y[i], y[j]],
+                    line_width = np.random.randint(7), line_color = lineColor)
 
     curTimeIdx = 0
 
@@ -122,18 +118,32 @@ def launch(allSubreddits, allConnections, maxSubreddits, maxTimeSteps):
     ## Bokeh Widget and JS Code ##############################################
 
     # JS code triggered whenever value slider is changed
-    timeCallback = CustomJS(args=dict(source=source), code="""
+    '''timeCallback = CustomJS(args=dict(source=source), code="""
+    document.write("Pickle Called");
     var data = source.data;
     curTimeIdx = radius.value;
     for (int i = 0; i < data.color.length; i++) {
         data.color[i] =
     }
     source.change.emit();
-    """)
+    """)'''
+
+    callback = CustomJS(args=dict(source=source), code="""
+    var data = source.data;
+    var f = cb_obj.value
+    var time = data['time']
+    time = f
+    source.change.emit();
+""")
 
     pickleCallback = CustomJS(args=dict(source=source), code="""
+    document.write("Pickle Called");
     var data = source.data;
-    curTimeIdx = radius.value;
+    var idx = 0;
+    var value = menu.value;
+    for (int i = 0; i < )
+
+
     for (int i = 0; i < data.color.length; i++) {
         data.color[i] =
     }
@@ -141,21 +151,34 @@ def launch(allSubreddits, allConnections, maxSubreddits, maxTimeSteps):
     """)
 
     ##################################################################################
-    picleMenu = Select(title="Option:", value="foo", options=["#M", "bar", "baz", "quux"])
+    pickleMenu = Select(title="Option:", value="foo", options=pickles, callback=pickleCallback)
+    pickleCallback.args["menu"] = pickleMenu
+    pickleMenu.js_on_change("value", pickleCallback)
 
-    timeSlider = Slider(start=0, end=N, value=1, step=1,
-                title="Change Time", callback=timeCallback)
-    timeCallback.args["time"] = timeSlider
+    timeSlider = Slider(start=0, end=N[curPickle], value=1, step=1,
+                title="Change Time", callback=callback)
+    callback.args["time"] = timeSlider
+    timeSlider.js_on_change('time', callback)
 
     text = PreText(text = """
     This will be HTML-compatible text
     """, width = 200, height = 400)
 
     layout = row(
-        widgetbox(timeSlider, text),
-        plot)
-
+        widgetbox(timeSlider, pickleMenu),
+        plot,
+        text)
     show(layout)
 
+def make_color(array2D):
+    colors = []
+    for i in range(len(array2D)):
+        colors.append([])
+
+    for i in range(len(array2D)):
+        for j in range(len(array2D[0])):
+            colors[i] = RGB(255*array2D[i][j], 20, 180*(1-array2D[i][j]))
+
+    return colors
 
 startup()

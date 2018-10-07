@@ -221,10 +221,8 @@ def simulate(simName): # Y0, T, N, h, M, b, k, subnames
 
         t += 1
 
-    final = {}
+    final = np.zeros((N,T))
     for j in range(N):
-        final_i = []
         for i in range(T):
-            final_i.append(Y[i][j][1])
-        final[subnames[j]] = final_i
-    return (L, final)
+            final[j][i] = Y[i][j][1]
+    return (L, final, subnames)
