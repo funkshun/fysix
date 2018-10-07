@@ -4,7 +4,7 @@ import pylab
 import numpy as np
 
 
-df = pd.read_csv('moth_meme.csv', sep=',',header=None)
+df = pd.read_csv('regex_test.csv', sep=',',header=None)
 data = df.values
 binwidth = np.abs(max(data) - min(data))/30
 print(binwidth)
