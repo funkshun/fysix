@@ -1,5 +1,4 @@
 # USEFUL FUNCTIONS #
-
 #So these are the ODEs set up for a single community
 #Here the quanity y is the following vector:
 #x = [s,i,r]

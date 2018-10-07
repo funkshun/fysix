@@ -3,12 +3,12 @@ import hackncutils as util
 import redditutils as red
 
 # INITIALIZATION #
-T_init = 1000 #total number of time steps
+T_init = 10000 #total number of time steps
 N_init = 3 #total number of communities
 M_init = 10000
-b_init = 1/3
-k_init = 1/2
-h_init = 1
+b_init = 0.33
+k_init = 0.00001
+h_init = 1e-1
 subnames_init = ["AskReddit", "explainlikeimfive", "offmychest"] #a list of size N of subreddit names (strings) ORDERED THE SAME as the 3-arrays in Y_init
 #example for how to initalize the values for the subreddit indexed 2 (from 0,1,2.... N-1):
 
@@ -61,3 +61,4 @@ def main(Y0, T, N, h, M, b, k, subnames):
             final_i.append(Y[i][j][1])
         final[subnames[j]] = final_i
     return final
+print(main(Y_init,T_init,N_init,h_init, M_init, b_init, k_init, subnames_init))
