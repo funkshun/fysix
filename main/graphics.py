@@ -1,5 +1,6 @@
 import numpy as np
-
+from bs4 import BeautifulSoup
+import codecs
 import simulator
 import holoviews as hv
 from bokeh.layouts import row, widgetbox
@@ -159,10 +160,9 @@ def launch(all_subreddits, all_connections, sub_reference):
                 title="Change Time", callback=callback)
     callback.args["time"] = timeSlider
     timeSlider.js_on_change('time', callback)
-
-    text = PreText(text = """
-    This will be HTML-compatible text
-    """, width = 200, height = 400)
+    
+    html_file = codecs.open("hacknc2018.html", 'r')
+    text = PreText(text = html_file.read(), width = 200, height = 400)
 
     layout = row(
         widgetbox(timeSlider, pickleMenu),
