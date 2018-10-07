@@ -18,10 +18,16 @@ data = data[(abs((data - mean_t) / stddev) < 3)]
 
 binwidth = np.abs(max(data) - min(data))/100
 print(binwidth)
-fig, ax = plt.subplots()
+plt.hist(data, bins=np.arange(min(data), max(data) + binwidth, binwidth))
+fig, ax = plt.subplots(1, 1)
+
 fig.canvas.draw()
 
-plt.hist(data, bins=np.arange(min(data), max(data) + binwidth, binwidth))
+labels = [item.get_text() for item in plt.plot().get_xticklabels()]
+print(labels)
+#for i in range(0, len(labels)):
+#    labels[i] = datetime.datetime.utcfromtimestamp(int(float(labels[1])))
+#ax.set_xticklabels(labels)
 
 
 plt.show()
