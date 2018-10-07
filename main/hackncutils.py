@@ -1,9 +1,7 @@
 # USEFUL FUNCTIONS #
-<<<<<<< HEAD
-=======
+
 import numpy as np
 
->>>>>>> 1941784207fcb8cbdcdb8281cd741e75a6a82ace
 #So these are the ODEs set up for a single community
 #Here the quanity y is the following vector:
 #x = [s,i,r]
@@ -11,6 +9,7 @@ import numpy as np
 #really just setting up the 'virial spread' ODEs for each individual
 #community here
 def get_dydt(y,b,k):
+    #print(b)
     s = y[0]
     i = y[1]
     dydt = np.zeros(3)
@@ -20,6 +19,7 @@ def get_dydt(y,b,k):
     return dydt
 
 def rk4(y,h,b,k):
+    #print(b)
     k1 = h*get_dydt(y,b,k)
     k2 = h*get_dydt(y+0.5*k1,b,k)
     k3 = h*get_dydt(y+0.5*k2,b,k)
