@@ -16,6 +16,7 @@ Y_init = np.zeros((T_init, N_init, 3))  #initial data for s, i, r for each commu
 for j in range(N_init): #initialize each jth sub with (s,i,r) = (1,0,0)
     Y_init[0][j] = np.array([1.0, 0.0, 0.0])
 
+
 subnames_init = ["esist",
 "The_Mueller",
 "liberal",
@@ -31,6 +32,8 @@ subnames_init = ["esist",
 "LateStageCapitalism",
 "dankmemes",
 "pics"] #a list of size N of subreddit names (strings) ORDERED THE SAME as the 3-arrays in Y_init
+
+simulatingstring = "Trump"
 
 #if I want to initialize explainlikeimfive as being infected with some i, while the other communities as non-infected (so s,i,r = 0):
 Y_init[0][0] = np.array([0.7, 0.3, 0.0]) # index of Y_init: 0 is the time (so 0 since this is initial), the next index is the index of sub you want to give initial condition
@@ -97,7 +100,7 @@ def main(Y0, T, N, h, M, b, k, subnames):
                         #print((j,c))
                         #print(i_c)
                         sm += L[j,c]*i_c
-                prob_infection = sm / (N - 1) #probability of infection of jth subreddit by the other subs
+                prob_infection = (sm)/ (N - 1) #probability of infection of jth subreddit by the other subs
                 u = np.random.rand()
                 #print(prob_infection)
                 if u < prob_infection:
