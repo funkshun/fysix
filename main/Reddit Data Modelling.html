@@ -1,0 +1,85 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    
+      <meta charset="utf-8">
+      <title>Bokeh Plot</title>
+      
+      
+        
+          
+        <link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.css" type="text/css" />
+        <link rel="stylesheet" href="https://cdn.pydata.org/bokeh/release/bokeh-widgets-0.13.0.min.css" type="text/css" />
+        
+        
+          
+        <script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-0.13.0.min.js"></script>
+        <script type="text/javascript" src="https://cdn.pydata.org/bokeh/release/bokeh-widgets-0.13.0.min.js"></script>
+        <script type="text/javascript">
+            Bokeh.set_log_level("info");
+        </script>
+        
+      
+      
+    
+  </head>
+  
+  
+  <body>
+    
+      
+        
+          
+          
+            <div class="bk-root" id="e8616379-86bc-42d5-9063-a17539bba1c2"></div>
+          
+        
+      
+      
+        <script type="application/json" id="a193c225-f0ce-48cb-ba3d-d240b4c105c1">
+          {"f5327694-034c-4875-b18a-dbe7be1ab6fc":{"roots":{"references":[{"attributes":{"children":[{"id":"28f8d5e7-ebaa-4c6a-8bae-8948a482e368","type":"Div"}]},"id":"21ad8929-0564-4c5a-8a76-218f6336d81b","type":"WidgetBox"},{"attributes":{"children":[{"id":"d22a08ca-be8e-4a68-90a2-05838830828d","type":"Div"}]},"id":"0a977a64-80cf-46b0-aa30-6a55f6d5b4b4","type":"WidgetBox"},{"attributes":{"children":[{"id":"21ad8929-0564-4c5a-8a76-218f6336d81b","type":"WidgetBox"},{"id":"0a977a64-80cf-46b0-aa30-6a55f6d5b4b4","type":"WidgetBox"},{"id":"24183a71-b3ac-4bcc-96d4-729b25f83c70","type":"WidgetBox"}]},"id":"b56df1d8-f3ec-498d-9bea-de7ac5b7e94f","type":"Row"},{"attributes":{"children":[{"id":"b40467c7-8a55-4acd-9ed9-3aebf9ae8cc0","type":"Div"}]},"id":"24183a71-b3ac-4bcc-96d4-729b25f83c70","type":"WidgetBox"},{"attributes":{"text":"&lt;!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"  \n  \"http://www.w3.org/TR/html4/loose.dtd\"&gt;  \n&lt;html &gt; \n&lt;head&gt;&lt;title&gt;About the Project&lt;/title&gt; \n&lt;meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\"&gt; \n&lt;meta name=\"generator\" content=\"TeX4ht (http://www.tug.org/tex4ht/)\"&gt; \n&lt;meta name=\"originator\" content=\"TeX4ht (http://www.tug.org/tex4ht/)\"&gt; \n&lt;!-- html --&gt; \n&lt;meta name=\"src\" content=\"hacknc2018.tex\"&gt; \n&lt;link rel=\"stylesheet\" type=\"text/css\" href=\"hacknc2018.css\"&gt; \n&lt;/head&gt;&lt;body \n&gt;\n   &lt;div class=\"maketitle\"&gt;\n\n\n\n&lt;h2 class=\"titleHead\"&gt;About the Project&lt;/h2&gt;\n&lt;div class=\"author\" &gt;&lt;span \nclass=\"cmr-12\"&gt;D. Brown, B. Fullwood, N. Konz, T. Richards, E. Yelton&lt;/span&gt;&lt;/div&gt;&lt;br /&gt;\n&lt;div class=\"date\" &gt;&lt;span \nclass=\"cmr-12\"&gt;October 7, 2018&lt;/span&gt;&lt;/div&gt;\n   &lt;/div&gt;\n   &lt;h3 class=\"sectionHead\"&gt;&lt;span class=\"titlemark\"&gt;1   &lt;/span&gt; &lt;a \n id=\"x1-10001\"&gt;&lt;/a&gt;Main Idea&lt;/h3&gt;\n&lt;!--l. 14--&gt;&lt;p class=\"noindent\" &gt;The questions that sparked this project were &amp;#8217;How are ideas spread?&amp;#8217; and &amp;#8217;Can we\nmodel this behavior?&amp;#8217;. With internet access, &amp;#8220;ideas&amp;#8221; are spread more rapidly than\never. Under the current polarized political climate as well as controversies of foul play\nby social media platforms there seems to be a heightened interest in such behavior.\nOur hypothesis is that &lt;span \nclass=\"cmbx-10\"&gt;the spread of ideas can be modeled by the behavior of&lt;/span&gt;\n&lt;span \nclass=\"cmbx-10\"&gt;infection.&lt;/span&gt;\n&lt;!--l. 16--&gt;&lt;p class=\"noindent\" &gt;\n   &lt;h3 class=\"sectionHead\"&gt;&lt;span class=\"titlemark\"&gt;2   &lt;/span&gt; &lt;a \n id=\"x1-20002\"&gt;&lt;/a&gt;Method&lt;/h3&gt;\n&lt;!--l. 18--&gt;&lt;p class=\"noindent\" &gt;To probe this hypothesis we used data retrieved from Reddit, using the python\nReddit API wrapper PRAW. We used this data to get a measure of the\n&amp;#8217;connectedness&amp;#8217; &lt;span \nclass=\"cmmi-10\"&gt;L &lt;/span&gt;between various subreddits; This term is a metric of how many\nusers on one subreddit are also active on some other chosen subreddit. For example,\nif we want to determined the connectedness &lt;span \nclass=\"cmmi-10\"&gt;L &lt;/span&gt;of two subreddits indexed with &lt;span \nclass=\"cmmi-10\"&gt;j &lt;/span&gt;and\n&lt;span \nclass=\"cmmi-10\"&gt;k&lt;/span&gt;, we look at the top &lt;span \nclass=\"cmmi-10\"&gt;M &lt;/span&gt;= 100 posts in the smaller (fewer subscriber) subreddit, and\nsee how many of the authors from that list have posted in the other subreddit. So, we\ndefine &lt;span \nclass=\"cmmi-10\"&gt;L &lt;/span&gt;as\n   &lt;table \nclass=\"equation\"&gt;&lt;tr&gt;&lt;td&gt;&lt;a \n id=\"x1-2001r1\"&gt;&lt;/a&gt;\n\n   &lt;center class=\"math-display\" &gt;\n&lt;img \nsrc=\"hacknc20180x.png\" alt=\"L  &amp;#x2261; Nj,k&amp;#x2261;  No. of-users that-post-in-both.\n jk   M      Total no. of users sampled\n\" class=\"math-display\" &gt;&lt;/center&gt;&lt;/td&gt;&lt;td class=\"equation-label\"&gt;(1)&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;\n&lt;!--l. 21--&gt;&lt;p class=\"nopar\" &gt;\nThese &lt;span \nclass=\"cmmi-10\"&gt;L &lt;/span&gt;values are part of the realistic basis for our simulation.\n&lt;!--l. 23--&gt;&lt;p class=\"indent\" &gt;   The mathematical model we used to simulate the spread of the ideas\nwithin a single subreddit is derivde from the SIR model of the spread of\ndisease &lt;span class=\"cite\"&gt;[&lt;a \nhref=\"#XSIR\"&gt;1&lt;/a&gt;]&lt;/span&gt;, which gives a set a 3 coupled ODEs described by D. Smith and L.\nMoore,\n   &lt;table \nclass=\"equation\"&gt;&lt;tr&gt;&lt;td&gt;&lt;a \n id=\"x1-2002r2\"&gt;&lt;/a&gt;\n   &lt;center class=\"math-display\" &gt;\n&lt;img \nsrc=\"hacknc20181x.png\" alt=\"ds(t)-= - bs(t)i(t)\n dt\ndi(t)\n dt  = - bs(t)i(t)- ki(t)\ndr(t)-\n dt  = ki(t)\ndi(t)   ds(t)   dr(t)\n-dt- + -dt--+ -dt--= 0\n\" class=\"math-display\" &gt;&lt;/center&gt;&lt;/td&gt;&lt;td class=\"equation-label\"&gt;(2)&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;\n&lt;!--l. 31--&gt;&lt;p class=\"nopar\" &gt;\n&lt;!--l. 33--&gt;&lt;p class=\"indent\" &gt;   where the &lt;span \nclass=\"cmmi-10\"&gt;s,i,r &lt;/span&gt;are just the percentages of the population (of a given community)\nsusceptible, infected, and recovering, respectively (mutually exclusive of course). In\nour analysis we used the analogy that s is the percentage of users of the given\nsubreddit who have not seen the &amp;#8217;idea&amp;#8217;, i is the percentage of users actively\ndiscussing and/or posting about the idea, and r corresponds to the percentage\nof users who have previously been &amp;#8217;infected&amp;#8217; and are no longer posting on\nsuch an idea. Note that the above equation have constants &lt;span \nclass=\"cmmi-10\"&gt;b &lt;/span&gt;and &lt;span \nclass=\"cmmi-10\"&gt;k &lt;/span&gt;that\ncorrespond to the contagion constant (the number of &amp;#8217;contacts&amp;#8217; needed to\nspread the idea) and the recovery constant (the fraction of people who will\nforget about certain idea over a certain time interval), respectively. The\nlast equation indicates that our model assumes that the total population of\nReddit users for a given subreddit does not change over time. Note that\nwe also assume the constants &lt;span \nclass=\"cmmi-10\"&gt;b &lt;/span&gt;and &lt;span \nclass=\"cmmi-10\"&gt;k &lt;/span&gt;to be different for each subreddit or\n\ncommunity. This means that an idea&amp;#8217;s propagation will depend on the subreddit\ncommunity that it&amp;#8217;s receiving it. For example, subreddits that generally\nfacilate the fast spread of new ideas will have a higher &lt;span \nclass=\"cmmi-10\"&gt;b&lt;/span&gt;, while subreddits that\nusually forget about popular trends quickly will have a higher &lt;span \nclass=\"cmmi-10\"&gt;r&lt;/span&gt;. For our\nsimulations, we took educated guesses about the best &lt;span \nclass=\"cmmi-10\"&gt;b &lt;/span&gt;and &lt;span \nclass=\"cmmi-10\"&gt;r &lt;/span&gt;values for the\nsubreddits.\n&lt;!--l. 34--&gt;&lt;p class=\"indent\" &gt;   In order to actually solve the ODE&amp;#8217;s for each community that we&amp;#8217;re considering,\nwe used a Runge-Kutta 4th order integration method (ODE solver) to solve the\nsystem of equations, which we run for each time step, for each system of each\ncommunity.\n&lt;!--l. 35--&gt;&lt;p class=\"indent\" &gt;   However, these ODE&amp;#8217;s only model the spread of ideas &lt;span \nclass=\"cmbx-10\"&gt;within &lt;/span&gt;subreddits.\nWe also model the spread of ideas &lt;span \nclass=\"cmbx-10\"&gt;between &lt;/span&gt;subreddits, using a form of\nconditional probabilistic Markov chain derived from the connectedness values. Say\nthat we have &lt;span \nclass=\"cmmi-10\"&gt;N &lt;/span&gt;subreddits in total, each with different &lt;span \nclass=\"cmmi-10\"&gt;L &lt;/span&gt;connectedness\nvalues between every pair of them. For every noninfected subreddit, at each\ntime step we estimate the probability of the subreddit becoming infected\nfrom any one of the infected subreddits, using the following (normalized)\nestimate (which sums over the other &lt;span \nclass=\"cmmi-10\"&gt;N &lt;/span&gt;&lt;span \nclass=\"cmsy-10\"&gt;- &lt;/span&gt;1 subreddits, which are indexed by\n&lt;span \nclass=\"cmmi-10\"&gt;k&lt;/span&gt;:\n   &lt;table \nclass=\"equation\"&gt;&lt;tr&gt;&lt;td&gt;&lt;a \n id=\"x1-2003r3\"&gt;&lt;/a&gt;\n   &lt;center class=\"math-display\" &gt;\n&lt;img \nsrc=\"hacknc20182x.png\" alt=\"                        th                  ---1--N&amp;#x2211;- 1\nProbability for infection of j subreddit &amp;#x2261; P (t)j = N - 1   Ljkik(t)\n                                                 k&amp;#x2044;=j\n\" class=\"math-display\" &gt;&lt;/center&gt;&lt;/td&gt;&lt;td class=\"equation-label\"&gt;(3)&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;\n&lt;!--l. 38--&gt;&lt;p class=\"nopar\" &gt;\n&lt;!--l. 40--&gt;&lt;p class=\"indent\" &gt;   Notice that the &lt;span \nclass=\"cmmi-10\"&gt;N &lt;/span&gt;&lt;span \nclass=\"cmsy-10\"&gt;&amp;#x00D7; &lt;/span&gt;&lt;span \nclass=\"cmmi-10\"&gt;N &lt;/span&gt;matrix of &lt;span \nclass=\"cmmi-10\"&gt;L &lt;/span&gt;values is essentially used as a transition\nmatrix from Markov chain theory. The higher this probability, the higher the chance\nthat at the time step, the &lt;span \nclass=\"cmmi-10\"&gt;jth &lt;/span&gt;subreddit will become infected. This calculation is done\nfor each of the uninfected subreddits.\n&lt;!--l. 41--&gt;&lt;p class=\"indent\" &gt;   Given more time than the 24-hour limit, we would&amp;#8217;ve liked to slightly\ncorrect the infection probability computation by accounting for the generalized\ninclusion-exclusion principle of probabilities (to avoid over-counting). We also wanted\nto compare our results to real reddit data over time, but it was difficult to get this\ntype of specific data for the precise range of times that we needed. We visualized this\nentire process on the main page.\n\n&lt;!--l. 43--&gt;&lt;p class=\"noindent\" &gt;\n   &lt;h3 class=\"likesectionHead\"&gt;&lt;a \n id=\"x1-30002\"&gt;&lt;/a&gt;References&lt;/h3&gt;\n&lt;!--l. 43--&gt;&lt;p class=\"noindent\" &gt;\n   &lt;div class=\"thebibliography\"&gt;\n   &lt;p class=\"bibitem\" &gt;&lt;span class=\"biblabel\"&gt;\n [1]&lt;span class=\"bibsp\"&gt;&amp;#x00A0;&amp;#x00A0;&amp;#x00A0;&lt;/span&gt;&lt;/span&gt;&lt;a \n id=\"XSIR\"&gt;&lt;/a&gt;Smith D., Moore L. (2004 December) &amp;#8221;The SIR Model for Spread of\n   Disease - The Differential Equation Model&amp;#8221; &lt;span \nclass=\"cmti-10\"&gt;Convergence &lt;/span&gt;&lt;br \nclass=\"newline\" /&gt;Retrieved October 6, 2018 &lt;span \nclass=\"cmtt-10\"&gt;https://www.maa.org/press/periodicals/loci/joma&lt;/span&gt;&lt;br \nclass=\"newline\" /&gt;&lt;span \nclass=\"cmtt-10\"&gt;/the-sir-model-for-spread-of-disease-the-differential-equation-model&lt;/span&gt;&lt;/p&gt;&lt;/div&gt;\n    \n&lt;/body&gt;&lt;/html&gt; \n\n\n\n"},"id":"28f8d5e7-ebaa-4c6a-8bae-8948a482e368","type":"Div"},{"attributes":{"text":"\n    &lt;!DOCTYPE html&gt;\n    &lt;html&gt;\n    &lt;body&gt;\n    &lt;p style = \"position:absolute; TOP:50px; LEFT: 500px; WIDTH:600px\"&gt;Our model predicts how interconnected subreddits might share ideas.\n    In the example below, the subreddit \"The_Mueller\" starts with an idea. Each subreddit has a chance of \"conracting\" the idea based on the strengths\n    of its conncetions and the concentration of the idea in the surrounding populations.\n    &lt;/p&gt;\n\n    &lt;img src = 'network.gif', width = 600px, height = 600px,\n    IMG STYLE=\"position:absolute; TOP:100px; LEFT:500px; WIDTH:600px; HEIGHT:600px\"&gt;\n\n    &lt;img src = 'legend.png', width = 400px, height = 75px,\n    IMG STYLE=\"position:absolute; TOP:720px; LEFT:500px; HEIGHT:75px\"&gt;\n\n    &lt;img src = 'smallpolitical_plotloop.gif', width = 600px, height = 400px,\n    IMG STYLE=\"position:absolute; TOP:900px; LEFT:500px; WIDTH:600px; HEIGHT:600px\"&gt;\n\n    &lt;img src = 'gaming_plotloop.gif', width = 600px, height = 400px,\n    IMG STYLE=\"position:absolute; TOP:1500px; LEFT:500px; WIDTH:600px; HEIGHT:600px\"&gt;\n\n    &lt;img src = 'enter.gif', width = 600px, height = 400px,\n    IMG STYLE=\"position:absolute; TOP:2100px; LEFT:500px; WIDTH:600px; HEIGHT:600px\"&gt;\n\n    &lt;img src = 'political_plotloop.gif', width = 600px, height = 400px,\n    IMG STYLE=\"position:absolute; TOP:2700px; LEFT:500px; WIDTH:600px; HEIGHT:600px\"&gt;\n\n    &lt;/body&gt;\n    &lt;/html&gt;\n    "},"id":"d22a08ca-be8e-4a68-90a2-05838830828d","type":"Div"},{"attributes":{"text":"\n    &lt;!DOCTYPE html&gt;\n    &lt;html&gt;\n    &lt;body&gt;\n\n    &lt;p style = \"position:absolute; TOP:50px; LEFT: 1200px; WIDTH:400px\"&gt; We gathered some Reddit\n    user data to show how viral trends looks in the real world.   The below plots show that phenomena\n    such as memes experience massive surges at different times in different communities, giving\n    some credence to our model.\n    &lt;/p&gt;\n\n    &lt;img src = 'dankmemes.png', width = 200, height = 200, align = \"right\",\n    IMG STYLE=\"position:absolute; TOP:150px; LEFT:1200px; WIDTH:400px; HEIGHT:200px\" &gt;\n\n    &lt;img src = 'MemeEconomy.png', width = 200, height = 200, align = \"right\",\n    IMG STYLE=\"position:absolute; TOP:400px; LEFT:1200px; WIDTH:400px; HEIGHT:200px\"&gt;\n\n    &lt;img src = 'mothmemes.png', width = 200, height = 200, align = \"right\",\n    IMG STYLE=\"position:absolute; TOP:650px; LEFT:1200px; WIDTH:400px; HEIGHT:200px\"&gt;\n\n    &lt;/body&gt;\n    &lt;/html&gt;\n    "},"id":"b40467c7-8a55-4acd-9ed9-3aebf9ae8cc0","type":"Div"}],"root_ids":["b56df1d8-f3ec-498d-9bea-de7ac5b7e94f"]},"title":"Bokeh Application","version":"0.13.0"}}
+        </script>
+        <script type="text/javascript">
+          (function() {
+            var fn = function() {
+              Bokeh.safely(function() {
+                (function(root) {
+                  function embed_document(root) {
+                    
+                  var docs_json = document.getElementById('a193c225-f0ce-48cb-ba3d-d240b4c105c1').textContent;
+                  var render_items = [{"docid":"f5327694-034c-4875-b18a-dbe7be1ab6fc","roots":{"b56df1d8-f3ec-498d-9bea-de7ac5b7e94f":"e8616379-86bc-42d5-9063-a17539bba1c2"}}];
+                  root.Bokeh.embed.embed_items(docs_json, render_items);
+                
+                  }
+                  if (root.Bokeh !== undefined) {
+                    embed_document(root);
+                  } else {
+                    var attempts = 0;
+                    var timer = setInterval(function(root) {
+                      if (root.Bokeh !== undefined) {
+                        embed_document(root);
+                        clearInterval(timer);
+                      }
+                      attempts++;
+                      if (attempts > 100) {
+                        console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing")
+                        clearInterval(timer);
+                      }
+                    }, 10, root)
+                  }
+                })(window);
+              });
+            };
+            if (document.readyState != "loading") fn();
+            else document.addEventListener("DOMContentLoaded", fn);
+          })();
+        </script>
+    
+  </body>
+  
+</html>
